@@ -1,4 +1,5 @@
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
@@ -61,6 +62,9 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "gnome-terminal", NULL };
 static const char *brightness_lower_cmd[] = { "brightness-", NULL };
 static const char *brightness_higher_cmd[] = { "brightness+", NULL };
+static const char *inc_volume[] = { "amixer", "set", "Master", "10%+" };
+static const char *dec_volume[] = { "amixer", "set", "Master", "10%-" };
+static const char *mute_volume[] = { "amixer", "set", "Master", "toggle" };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -68,7 +72,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
     { 0,                            XK_F2,     spawn,          {.v = brightness_lower_cmd } },
     { 0,                            XK_F3,     spawn,          {.v = brightness_higher_cmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+    { 0,                            XF86XK_AudioRaiseVolume, spawn, { .v = inc_volume } },
+    { 0,                            XF86XK_AudioLowerVolume, spawn, { .v = dec_volume } },
+    { 0,                            XF86XK_AudioMute,        spawn, { .v = mute_volume } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
