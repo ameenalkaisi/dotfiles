@@ -5,6 +5,8 @@
 HOME_DIR=/home/ameen; # set this
 
 if [ $GDMSESSION == "dwm" ] ; then 
-    # setxkbmap -layout us,iq -option grp:alt_space_toggle; # doesn't work here :/
+    setxkbmap -layout us,iq -option grp:alt_space_toggle;
+    nitrogen --restore
+    compton --config $HOME_DIR/.config/compton/compton.conf &
     $HOME_DIR/.dwm/autostart.sh &
 fi

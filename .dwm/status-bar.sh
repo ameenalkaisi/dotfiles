@@ -25,6 +25,7 @@ get_vol () {
 # get xkblayout-state from 
 # https://github.com/nonpop/xkblayout-state.git
 get_lang() {
+    # todo: i think xblayout-state needs proper $PATH
     echo $(xkblayout-state print "%s");
 }
 
@@ -37,7 +38,8 @@ get_lang() {
 
 while [[ $(who | grep -w $USER | wc -l) -eq 1 ]]
 do 
-    # xsetroot -name "| $(get_vol) | $(get_lang) | $(acpitool -b | awk '{ print $5 }') | $(date)"; # get_lang needs work, todo
+    # todo: fix get_lang
+    # xsetroot -name "| $(get_vol) | $(get_lang) | $(acpitool -b | awk '{ print $5 }') | $(date)";
     xsetroot -name "| $(get_vol) | $(acpitool -b | awk '{ print $5 }') | $(date)";
-    sleep 500ms;
+    sleep 0.5s;
 done &
