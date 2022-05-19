@@ -1,4 +1,4 @@
-HOME_DIR = /home/ameen; # set this!
+HOME_DIR=/home/ameen; # set this!
 
 # possibly able to remove some things here
 export LD_LIBRARY_PATH=/usr/local/lib64:$LD_LIBRARY_PATH;

@@ -22,9 +22,22 @@ get_vol () {
     fi
 }
 
-while [[ $GDMSESSION == "dwm" && $(who | grep -w $USER | wc -l) -eq 1 ]]
+# get xkblayout-state from 
+# https://github.com/nonpop/xkblayout-state.git
+get_lang() {
+    echo $(xkblayout-state print "%s");
+}
+
+# keep looping as long as user is logged in
+# 
+# this removes an issue where script would keep
+# running multiple times on lightdm login and would make
+# configuring the script difficult as you would have to reboot
+# to see changes
+
+while [[ $(who | grep -w $USER | wc -l) -eq 1 ]]
 do 
-    xsetroot -name "$(get_vol) | $(acpitool -b | awk '{ print $5 }') | $(date)";
-    #xsetroot -name "testing!";
-    sleep 1s;
+    # xsetroot -name "| $(get_vol) | $(get_lang) | $(acpitool -b | awk '{ print $5 }') | $(date)"; # get_lang needs work, todo
+    xsetroot -name "| $(get_vol) | $(acpitool -b | awk '{ print $5 }') | $(date)";
+    sleep 500ms;
 done &
