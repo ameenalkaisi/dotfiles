@@ -28,6 +28,10 @@ get_lang() {
     echo $(/home/ameen/dotfiles/dwm/getxkblayout.o | awk '/Layout/ { printf $3; }');
 }
 
+get_network() {
+    echo $(nmcli c show --active | awk 'NR == 2 { printf $1; }');
+}
+
 # keep looping as long as user is logged in
 # 
 # this removes an issue where script would keep
@@ -37,7 +41,6 @@ get_lang() {
 
 while [[ $(who | grep -w $USER | wc -l) -eq 1 ]]
 do 
-    xsetroot -name "| $(get_vol) | $(get_lang) | $(acpitool -b | awk '{ print $5 }') | $(date)";
-    # xsetroot -name "| $(get_vol) | $(acpitool -b | awk '{ print $5 }') | $(date)";
+    xsetroot -name "| $(get_vol) | $(get_lang) | $(get_network) | $(acpitool -b | awk '{ print $5 }') | $(date)";
     sleep 0.5s;
 done &
