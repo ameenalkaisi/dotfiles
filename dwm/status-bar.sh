@@ -39,7 +39,7 @@ get_lang() {
 while [[ $(who | grep -w $USER | wc -l) -eq 1 ]]
 do 
     # todo: fix get_lang
-    # xsetroot -name "| $(get_vol) | $(get_lang) | $(acpitool -b | awk '{ print $5 }') | $(date)";
-    xsetroot -name "| $(get_vol) | $(acpitool -b | awk '{ print $5 }') | $(date)";
+    xsetroot -name "| $(get_vol) | $(get_lang) | $(acpitool -b | awk '{ print $5 }') | $(date)";
+    # xsetroot -name "| $(get_vol) | $(acpitool -b | awk '{ print $5 }') | $(date)";
     sleep 0.5s;
 done &
