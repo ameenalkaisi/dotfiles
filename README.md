@@ -26,10 +26,19 @@ It will then prompt which file to apply it to, enter config.h, and it should be 
 note also that this is the command to apply patches for .diff files in 
 general (useful for patching suckless software)
 
+requires libxblayout-dev package to be installed (or compile libxkblayout
+from github if you can find it)
+
+compile that file using this command:
+```
+gcc -I/usr/include getxkblayout.c -lX11 -lxkbfile -o getxkblayout.o
+```
+
 autostart.sh file should be symlinked to a file where the autostart 
 patch reads under, e.g., ~/.dwm/autostart.sh, change the 
 variables as suitable to your location of where dwm's config file is 
 and where you wanted to place this git directory. The autostart patch 
 found in the [suckless website](https://dwm.suckless.org/patches/autostart/)
 
-As of right now, autostart script could just be ran inside .xsessionrc
+an alternative to the above is to place it in .xsessionrc, but above seems
+more proper

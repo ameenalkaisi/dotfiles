@@ -22,23 +22,21 @@ get_vol () {
     fi
 }
 
-# get xkblayout-state from 
-# https://github.com/nonpop/xkblayout-state.git
 get_lang() {
-    # todo: i think xblayout-state needs proper $PATH
-    echo $(xkblayout-state print "%s");
+    # solution grabbed from fikovnik from github
+    # https://gist.github.com/fikovnik/ef428e82a26774280c4fdf8f96ce8eeb#file-getxkblayout-c
+    echo $(/home/ameen/dotfiles/dwm/getxkblayout.o | awk '/Layout/ { printf $3; }');
 }
 
 # keep looping as long as user is logged in
 # 
 # this removes an issue where script would keep
-# running multiple times on lightdm login and would make
+# running multiple times when there is alot of lightdm logins and would make
 # configuring the script difficult as you would have to reboot
 # to see changes
 
 while [[ $(who | grep -w $USER | wc -l) -eq 1 ]]
 do 
-    # todo: fix get_lang
     xsetroot -name "| $(get_vol) | $(get_lang) | $(acpitool -b | awk '{ print $5 }') | $(date)";
     # xsetroot -name "| $(get_vol) | $(acpitool -b | awk '{ print $5 }') | $(date)";
     sleep 0.5s;

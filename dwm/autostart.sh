@@ -1,5 +1,5 @@
 #!/bin/bash
-# this script is run by .xinitrc
+# this script is run by .xsessionrc
 # can be done any way though as long as it's a startup script that runs once
 # on session manager login
 
