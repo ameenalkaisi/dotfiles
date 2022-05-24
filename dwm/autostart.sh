@@ -11,3 +11,4 @@ setxkbmap -layout us,iq -option grp:alt_space_toggle;
 nitrogen --restore;
 compton --config $HOME_DIR/.config/compton/compton.conf &
 $DOTFILES_DIR/dwm/status-bar.sh &
+dex -s ~/.config/autostart -a
