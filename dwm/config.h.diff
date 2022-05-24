@@ -32,8 +32,7 @@
  	/* modifier                     key        function        argument */
  	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
--	{ MODKEY,                       XK_b,      togglebar,      {0} },
-+    { MODKEY,                       XK_b,      spawn,          {.v = firefoxcmd } },
++    { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = firefoxcmd } },
 +    { 0,                            XK_F2,     spawn,          {.v = brightness_lower_cmd } },
 +    { 0,                            XK_F3,     spawn,          {.v = brightness_higher_cmd } },
 +    { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = inc_volume } },

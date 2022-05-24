@@ -25,7 +25,7 @@ get_vol () {
 get_lang() {
     # solution grabbed from fikovnik from github
     # https://gist.github.com/fikovnik/ef428e82a26774280c4fdf8f96ce8eeb#file-getxkblayout-c
-    echo $(/home/ameen/dotfiles/dwm/getxkblayout.o | awk '/Layout/ { printf $3; }');
+    echo $(~/dotfiles/dwm/getxkblayout.o | awk '/Layout/ { printf $3; }');
 }
 
 get_network() {
