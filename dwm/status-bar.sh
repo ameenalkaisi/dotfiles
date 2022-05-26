@@ -1,4 +1,6 @@
 #!/bin/bash
+DOTFILES_DIR=$HOME/dotfiles;
+
 get_vol () {
     if [[ $(amixer sget Master | awk -F"[][]" '/dB/ { printf $6 }') == "off" ]];
     then 
@@ -25,7 +27,7 @@ get_vol () {
 get_lang() {
     # solution grabbed from fikovnik from github
     # https://gist.github.com/fikovnik/ef428e82a26774280c4fdf8f96ce8eeb#file-getxkblayout-c
-    echo $(~/dotfiles/dwm/getxkblayout.o | awk '/Layout/ { printf $3; }');
+    echo $($DOTFILES_DIR/dwm/getxkblayout.o | awk '/Layout/ { printf $3; }');
 }
 
 get_network() {
