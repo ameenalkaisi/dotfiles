@@ -39,7 +39,7 @@ get_network() {
 # configuring the script difficult as you would have to reboot
 # to see changes
 
-while [[ $(who | grep -w $USER | wc -l) -eq 1 ]]
+while [[ $(who | grep -w $USER | wc -l) -ge 1 ]]
 do 
     xsetroot -name "| $(get_vol) | $(get_lang) | $(get_network) | $(acpitool -b | awk '{ print $5 }') | $(date)";
     sleep 0.5s;
