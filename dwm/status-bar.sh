@@ -41,6 +41,6 @@ get_network() {
 
 while [[ $(who | grep -w $USER | wc -l) -ge 1 ]]
 do 
-    xsetroot -name "| $(get_vol) | $(get_lang) | $(get_network) | $(acpitool -b | awk '{ print $5 }') | $(date)";
+    xsetroot -name "| $(get_vol) | $(get_lang) | $(get_network) | $(acpitool -b | awk '{ print $5 }') | $(date +'%r %d/%m/%y %a %b')";
     sleep 0.5s;
 done &
