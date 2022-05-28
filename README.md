@@ -9,10 +9,15 @@ ln -s <source which would be in this git repo>
 ```
 
 ## for vim
-create ~/.vim/colors directories, and get candycolor from google then put 
+Create ~/.vim/colors directories, and get candycolor from google then put 
 it in that directory
 
 symlink the vimrc file to ~/.vimrc
+
+## for bash
+Preferrably copy the files into home, then modify them as needed. This is 
+because they usually vary alot depending on OS and person so I think 
+it makes more sense this way instead of symlinking.
 
 ## for dwm
 when compiling, remove config.h, compile, then apply the .diff file using 
