@@ -14,6 +14,14 @@ it in that directory
 
 symlink the vimrc file to ~/.vimrc
 
+## for nvim
+In windows, put it into $env:LOCALAPPDATA/nvim after installation, then 
+make sure Packer is properly installed and run :PackerSync inside of 
+nvim. In Linux, place it into ~/.config/nvim, and do the same.
+
+If you get something is not found error, it's probably an LSP server, 
+so must install it externally as well.
+
 ## for bash
 Preferrably copy the files into home, then modify them as needed. This is 
 because they usually vary alot depending on OS and person so I think 
