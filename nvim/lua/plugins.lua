@@ -1,11 +1,11 @@
 return require('packer').startup(
 	function()
+		use 'wbthomason/packer.nvim'
 		use
 		{
 			"williamboman/nvim-lsp-installer",
 			"neovim/nvim-lspconfig",
 		}
-		use 'wbthomason/packer.nvim'
 		use 'nvim-treesitter/nvim-treesitter'
 		use 'preservim/nerdtree'
 		use 'junegunn/fzf'
@@ -16,10 +16,19 @@ return require('packer').startup(
 		use 'ms-jpq/coq.thirdparty'
 		use 'jose-elias-alvarez/nvim-lsp-ts-utils'
 		use 'alvan/vim-closetag'
-		use 
+		use
 		{
 			'nvim-lualine/lualine.nvim',
 			requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+		}
+		use 'folke/tokyonight.nvim'
+		use 
+		{
+			'goolord/alpha-nvim',
+			requires = { 'kyazdani42/nvim-web-devicons' },
+			config = function ()
+				require'alpha'.setup(require'alpha.themes.startify'.config)
+			end
 		}
 	end
 )

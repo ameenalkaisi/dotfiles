@@ -4,19 +4,25 @@ vim.wo.relativenumber = true
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-vim.bo.autoindent = true
-vim.bo.tabstop = 4
-vim.bo.shiftwidth = 4
-vim.bo.softtabstop = 4
-
+vim.go.signcolumn="yes"
 vim.go.hidden = true
 vim.go.smarttab = true
 vim.go.mouse = a
 vim.go.encoding = "utf-8"
 
 vim.g.closetag_filenames = '*.html,*.xhtml,*.phtml,*.tsx,*.jsx,*.php'
+
+vim.cmd[[
+colorscheme tokyonight
+set autoindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+]]
+
 require('plugins')
 require('lualine').setup()
+require("nvim-lsp-installer").setup {}
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -26,6 +32,8 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 vim.keymap.set('n', '<leader>f', ':FZF<CR>', opts)
+vim.keymap.set('n', '<leader>nn', ':NERDTree<CR>', opts)
+vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -56,12 +64,11 @@ end
 
 -- Setup lspconfig.
 local lspconfig = require("lspconfig")
-
 -- Automatically start coq
 vim.g.coq_settings = { auto_start = 'shut-up' }
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', "sumneko_lua" }
+local servers = { 'clangd', "sumneko_lua", "dockerls", "jsonls"}
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup(require('coq').lsp_ensure_capabilities({
 		on_attach = on_attach
@@ -128,7 +135,7 @@ lspconfig.tsserver.setup({
 
 		on_attach(client, bufnr)
 		-- no default maps, so you may want to define some here
-		local opts = { silent = true }
+		opts = { silent = true }
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>r", ":TSLspRenameFile<CR>", opts)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>i", ":TSLspImportAll<CR>", opts)
