@@ -22,12 +22,16 @@ return require('packer').startup(
 			requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 		}
 		use 'folke/tokyonight.nvim'
-		use 
+		use
 		{
 			'goolord/alpha-nvim',
 			requires = { 'kyazdani42/nvim-web-devicons' },
-			config = function ()
-				require'alpha'.setup(require'alpha.themes.startify'.config)
+			config = function()
+				require 'alpha'.setup(require 'alpha.themes.startify'.config)
+			end
+		}
+		use { "akinsho/toggleterm.nvim", config = function()
+			require("toggleterm").setup()
 			end
 		}
 	end

@@ -4,7 +4,7 @@ vim.wo.relativenumber = true
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-vim.go.signcolumn="yes"
+vim.go.signcolumn = "yes"
 vim.go.hidden = true
 vim.go.smarttab = true
 vim.go.mouse = a
@@ -12,7 +12,7 @@ vim.go.encoding = "utf-8"
 
 vim.g.closetag_filenames = '*.html,*.xhtml,*.phtml,*.tsx,*.jsx,*.php'
 
-vim.cmd[[
+vim.cmd [[
 colorscheme tokyonight
 set autoindent
 set tabstop=4
@@ -32,8 +32,22 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 vim.keymap.set('n', '<leader>f', ':FZF<CR>', opts)
-vim.keymap.set('n', '<leader>nn', ':NERDTree<CR>', opts)
+vim.keymap.set('n', '<leader>nn', ':NERDTreeToggle<CR>', opts)
 vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
+vim.keymap.set('n', '<leader>t', ':ToggleTerm<CR>', opts)
+open_mapping = [[<c-\>]]
+
+function _G.set_terminal_keymaps()
+	local opts = { noremap = true }
+	vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+	vim.api.nvim_buf_set_keymap(0, 't', '<C-W>h', [[<C-\><C-n><C-W>h]], opts)
+	vim.api.nvim_buf_set_keymap(0, 't', '<C-W>j', [[<C-\><C-n><C-W>j]], opts)
+	vim.api.nvim_buf_set_keymap(0, 't', '<C-W>k', [[<C-\><C-n><C-W>k]], opts)
+	vim.api.nvim_buf_set_keymap(0, 't', '<C-W>l', [[<C-\><C-n><C-W>l]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -68,7 +82,7 @@ local lspconfig = require("lspconfig")
 vim.g.coq_settings = { auto_start = 'shut-up' }
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', "sumneko_lua", "dockerls", "jsonls"}
+local servers = { 'clangd', "sumneko_lua", "dockerls", "jsonls" }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup(require('coq').lsp_ensure_capabilities({
 		on_attach = on_attach
