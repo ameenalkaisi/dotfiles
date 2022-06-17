@@ -13,3 +13,7 @@ export PYTHONPATH=$HOME_DIR/.local/lib:$PYTHONPATH;
 STARTCOLOR='\e[1;33m';
 ENDCOLOR="\e[0m"
 export PS1="\[$STARTCOLOR\][\@] \u@\h:\W\$ \[$ENDCOLOR\]"
+
+# set vi editing mode
+set -o vi
+bind -m vi-insert "\C-l":clear-screen

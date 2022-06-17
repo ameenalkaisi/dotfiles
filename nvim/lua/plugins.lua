@@ -30,9 +30,6 @@ return require('packer').startup(
 				require 'alpha'.setup(require 'alpha.themes.startify'.config)
 			end
 		}
-		use { "akinsho/toggleterm.nvim", config = function()
-			require("toggleterm").setup()
-			end
-		}
+		use 'akinsho/toggleterm.nvim'
 	end
 )

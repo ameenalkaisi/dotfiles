@@ -9,6 +9,7 @@ vim.go.hidden = true
 vim.go.smarttab = true
 vim.go.mouse = a
 vim.go.encoding = "utf-8"
+vim.go.belloff = "all"
 
 vim.g.closetag_filenames = '*.html,*.xhtml,*.phtml,*.tsx,*.jsx,*.php'
 
@@ -23,6 +24,18 @@ set shiftwidth=4
 require('plugins')
 require('lualine').setup()
 require("nvim-lsp-installer").setup {}
+require("toggleterm").setup({
+	size = 20,
+	open_mapping = [[<c-\>]],
+	insert_mappings = true,
+	terminal_mappings = true,
+	persist_size = true,
+	close_on_exit = true,
+	start_in_insert = true,
+	hide_numbers = true,
+	shell = vim.o.shell,
+	direction = "horizontal"
+})
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -34,8 +47,6 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 vim.keymap.set('n', '<leader>f', ':FZF<CR>', opts)
 vim.keymap.set('n', '<leader>nn', ':NERDTreeToggle<CR>', opts)
 vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
-vim.keymap.set('n', '<leader>t', ':ToggleTerm<CR>', opts)
-open_mapping = [[<c-\>]]
 
 function _G.set_terminal_keymaps()
 	local opts = { noremap = true }
@@ -82,7 +93,7 @@ local lspconfig = require("lspconfig")
 vim.g.coq_settings = { auto_start = 'shut-up' }
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', "sumneko_lua", "dockerls", "jsonls" }
+local servers = { 'clangd', "sumneko_lua", "dockerls", "jsonls", "yamlls" }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup(require('coq').lsp_ensure_capabilities({
 		on_attach = on_attach
