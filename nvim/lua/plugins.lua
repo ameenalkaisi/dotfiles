@@ -31,5 +31,8 @@ return require('packer').startup(
 			end
 		}
 		use 'akinsho/toggleterm.nvim'
+		use 'ThePrimeagen/harpoon'
+		use 'folke/which-key.nvim'
+		use 'emakman/neovim-latex-previewer'
 	end
 )

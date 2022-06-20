@@ -1,3 +1,4 @@
+---@diagnostic disable: unused-local, undefined-global
 vim.wo.number = true
 vim.wo.relativenumber = true
 
@@ -36,6 +37,8 @@ require("toggleterm").setup({
 	shell = vim.o.shell,
 	direction = "horizontal"
 })
+require("harpoon").setup{}
+require("which-key").setup{}
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -47,6 +50,13 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 vim.keymap.set('n', '<leader>f', ':FZF<CR>', opts)
 vim.keymap.set('n', '<leader>nn', ':NERDTreeToggle<CR>', opts)
 vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
+-- todo: set up harpoon mappings
+vim.keymap.set('n', "<leader>hf", ':lua require("harpoon.mark").add_file()<CR>', opts)
+vim.keymap.set('n', "<leader>hh", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
+for i=1, 5 do
+	vim.keymap.set('n', string.format("<M-%d>", i), string.format(":lua require('harpoon.ui').nav_file(%d)<CR>", i), opts)
+end
+-- need to open menu, and go to file numbers by perhaps c-#
 
 function _G.set_terminal_keymaps()
 	local opts = { noremap = true }
@@ -93,7 +103,7 @@ local lspconfig = require("lspconfig")
 vim.g.coq_settings = { auto_start = 'shut-up' }
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', "sumneko_lua", "dockerls", "jsonls", "yamlls" }
+local servers = { 'clangd', "sumneko_lua", "dockerls", "jsonls", "yamlls", "rust_analyzer", "ltex"}
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup(require('coq').lsp_ensure_capabilities({
 		on_attach = on_attach
