@@ -29,8 +29,12 @@ Preferrably copy the files into home, then modify them as needed. This is
 because they usually vary alot depending on OS and person so I think 
 it makes more sense this way instead of symlinking.
 
+## for powershell
+Need to install TerminalIcons module, PSReadLine module, and oh-my-posh (this 
+can be installed using chocolatey).
+
 ## for dwm
-when compiling, remove config.h, compile, then apply the .diff file using 
+When compiling, remove config.h, compile, then apply the .diff file using 
 the following command (file must
 be in the same directory, try to symlink it): 
 ```
