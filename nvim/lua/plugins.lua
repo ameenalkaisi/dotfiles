@@ -11,9 +11,6 @@ return require('packer').startup(
 		use 'junegunn/fzf'
 		use 'nvim-lua/plenary.nvim'
 		use 'tpope/vim-fugitive'
-		use 'ms-jpq/coq_nvim'
-		use 'ms-jpq/coq.artifacts'
-		use 'ms-jpq/coq.thirdparty'
 		use 'jose-elias-alvarez/nvim-lsp-ts-utils'
 		use 'alvan/vim-closetag'
 		use
@@ -33,6 +30,13 @@ return require('packer').startup(
 		use 'akinsho/toggleterm.nvim'
 		use 'ThePrimeagen/harpoon'
 		use 'folke/which-key.nvim'
-		use 'emakman/neovim-latex-previewer'
+		use 'lervag/vimtex'
+		use 'hrsh7th/cmp-nvim-lsp'
+		use 'hrsh7th/cmp-buffer'
+		use 'hrsh7th/cmp-path'
+		use 'hrsh7th/cmp-cmdline'
+		use 'hrsh7th/nvim-cmp'
+		use 'SirVer/ultisnips'
+		use 'quangnguyen30192/cmp-nvim-ultisnips'
 	end
 )

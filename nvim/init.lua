@@ -1,3 +1,21 @@
+require('plugins')
+require('lualine').setup()
+require("nvim-lsp-installer").setup {}
+require("toggleterm").setup({
+	size = 20,
+	open_mapping = [[<c-\>]],
+	insert_mappings = true,
+	terminal_mappings = true,
+	persist_size = true,
+	close_on_exit = true,
+	start_in_insert = true,
+	hide_numbers = true,
+	shell = "pwsh -nologo",
+	direction = "horizontal"
+})
+require("harpoon").setup {}
+require("which-key").setup {}
+
 ---@diagnostic disable: unused-local, undefined-global
 vim.wo.number = true
 vim.wo.relativenumber = true
@@ -13,6 +31,12 @@ vim.go.encoding = "utf-8"
 vim.go.belloff = "all"
 
 vim.g.closetag_filenames = '*.html,*.xhtml,*.phtml,*.tsx,*.jsx,*.php'
+vim.g.vimtex_view_general_viewer = 'SumatraPDF'
+vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
+
+vim.g.UltiSnipsExpandTrigger = '<tab>'
+vim.g.UltiSnipsJumpForwardTrigger = '<c-j>'
+vim.g.UltiSnipsJumpBackwardTrigger = '<c-k>'
 
 vim.cmd [[
 colorscheme tokyonight
@@ -20,25 +44,10 @@ set autoindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+filetype plugin indent on
+syntax on
+set completeopt=menu,menuone,noselect
 ]]
-
-require('plugins')
-require('lualine').setup()
-require("nvim-lsp-installer").setup {}
-require("toggleterm").setup({
-	size = 20,
-	open_mapping = [[<c-\>]],
-	insert_mappings = true,
-	terminal_mappings = true,
-	persist_size = true,
-	close_on_exit = true,
-	start_in_insert = true,
-	hide_numbers = true,
-	shell = vim.o.shell,
-	direction = "horizontal"
-})
-require("harpoon").setup{}
-require("which-key").setup{}
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -53,7 +62,7 @@ vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
 -- todo: set up harpoon mappings
 vim.keymap.set('n', "<leader>hf", ':lua require("harpoon.mark").add_file()<CR>', opts)
 vim.keymap.set('n', "<leader>hh", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
-for i=1, 5 do
+for i = 1, 5 do
 	vim.keymap.set('n', string.format("<M-%d>", i), string.format(":lua require('harpoon.ui').nav_file(%d)<CR>", i), opts)
 end
 -- need to open menu, and go to file numbers by perhaps c-#
@@ -94,21 +103,83 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 	vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-
 end
+
+local cmp = require 'cmp'
+cmp.setup({
+	snippet = {
+		-- REQUIRED - you must specify a snippet engine
+		expand = function(args)
+			-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+			-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+			-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+			vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+		end,
+	},
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
+	mapping = cmp.mapping.preset.insert({
+		['<C-b>'] = cmp.mapping.scroll_docs(-4),
+		['<C-f>'] = cmp.mapping.scroll_docs(4),
+		['<C-Space>'] = cmp.mapping.complete(),
+		['<C-e>'] = cmp.mapping.abort(),
+		['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+	}),
+	sources = cmp.config.sources({
+		{ name = 'nvim_lsp' },
+		--- { name = 'vsnip' }, -- For vsnip users.
+		-- { name = 'luasnip' }, -- For luasnip users.
+		{ name = 'ultisnips' }, -- For ultisnips users.
+		-- { name = 'snippy' }, -- For snippy users.
+	}, {
+		{ name = 'buffer' },
+	})
+})
+
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+	sources = cmp.config.sources({
+		{ name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+	}, {
+		{ name = 'buffer' },
+	})
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = 'buffer' }
+	}
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = 'path' }
+	}, {
+		{ name = 'cmdline' }
+	})
+})
+
+-- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Setup lspconfig.
 local lspconfig = require("lspconfig")
--- Automatically start coq
-vim.g.coq_settings = { auto_start = 'shut-up' }
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', "sumneko_lua", "dockerls", "jsonls", "yamlls", "rust_analyzer", "ltex"}
+local servers = { 'clangd', 'sumneko_lua', 'dockerls', 'jsonls', 'yamlls', 'rust_analyzer', 'texlab', 'ansiblels', 'jdtls' }
 for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup(require('coq').lsp_ensure_capabilities({
-		on_attach = on_attach
-	}))
+	lspconfig[lsp].setup {
+		on_attach = on_attach,
+		capabilities = capabilities
+	}
 end
+
 lspconfig.tsserver.setup({
 	-- Needed for inlayHints. Merge this table with your settings or copy
 	-- it from the source if you want to add your own init_options.
@@ -175,4 +246,5 @@ lspconfig.tsserver.setup({
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>r", ":TSLspRenameFile<CR>", opts)
 		vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>i", ":TSLspImportAll<CR>", opts)
 	end,
+	capabilities = capabilities,
 })
