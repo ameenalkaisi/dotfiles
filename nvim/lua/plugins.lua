@@ -38,5 +38,6 @@ return require('packer').startup(
 		use 'hrsh7th/nvim-cmp'
 		use 'SirVer/ultisnips'
 		use 'quangnguyen30192/cmp-nvim-ultisnips'
+		use 'tpope/vim-surround'
 	end
 )
