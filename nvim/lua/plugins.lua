@@ -19,6 +19,7 @@ return require('packer').startup(
 			requires = { 'kyazdani42/nvim-web-devicons', opt = true }
 		}
 		use 'folke/tokyonight.nvim'
+		use 'ellisonleao/gruvbox.nvim'
 		use
 		{
 			'goolord/alpha-nvim',

@@ -3,11 +3,12 @@
 # can be done any way though as long as it's a startup script that runs once
 # on session manager login 
 
-COMPTON_CONFIG=$HOME/.config/compton/compton.conf;
+PICOM_CONFIG=$HOME/.config/picom/picom.conf;
 DOTFILES_DIR=$HOME/dotfiles;
 
 setxkbmap -layout us,iq -option grp:alt_space_toggle;
-nitrogen --restore;
-compton --config $COMPTON_CONFIG &
-$DOTFILES_DIR/dwm/status-bar.sh;
+nitrogen --set-zoom-fill --random ~/wallpapers --save;
+picom --config $PICOM_CONFIG &
+polybar -c ~/.config/polybar/config.ini example&
+#$DOTFILES_DIR/dwm/status-bar.sh;
 #dex -a;

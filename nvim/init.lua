@@ -10,7 +10,7 @@ require("toggleterm").setup({
 	close_on_exit = true,
 	start_in_insert = true,
 	hide_numbers = true,
-	shell = "pwsh -nologo",
+	shell = "zsh",
 	direction = "horizontal"
 })
 require("harpoon").setup {}
@@ -38,8 +38,10 @@ vim.g.UltiSnipsExpandTrigger = '<tab>'
 vim.g.UltiSnipsJumpForwardTrigger = '<c-j>'
 vim.g.UltiSnipsJumpBackwardTrigger = '<c-k>'
 
+vim.g.background = dark
+
 vim.cmd [[
-colorscheme tokyonight
+colorscheme gruvbox
 set autoindent
 set tabstop=4
 set softtabstop=4
@@ -60,10 +62,10 @@ vim.keymap.set('n', '<leader>f', ':FZF<CR>', opts)
 vim.keymap.set('n', '<leader>nn', ':NERDTreeToggle<CR>', opts)
 vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
 -- todo: set up harpoon mappings
-vim.keymap.set('n', "<leader>hf", ':lua require("harpoon.mark").add_file()<CR>', opts)
+vim.keymap.set('n', "<leader>ha", ':lua require("harpoon.mark").add_file()<CR>', opts)
 vim.keymap.set('n', "<leader>hh", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
 for i = 1, 5 do
-	vim.keymap.set('n', string.format("<M-%d>", i), string.format(":lua require('harpoon.ui').nav_file(%d)<CR>", i), opts)
+	vim.keymap.set('n', string.format("<leader>h%d", i), string.format(":lua require('harpoon.ui').nav_file(%d)<CR>", i), opts)
 end
 -- need to open menu, and go to file numbers by perhaps c-#
 
@@ -172,7 +174,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 local lspconfig = require("lspconfig")
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'sumneko_lua', 'dockerls', 'jsonls', 'yamlls', 'rust_analyzer', 'texlab', 'ansiblels', 'jdtls' }
+local servers = { 'ccls', 'sumneko_lua', 'dockerls', 'jsonls', 'yamlls', 'rust_analyzer', 'texlab', 'ansiblels', 'jdtls', 'cssls', 'csharp_ls' }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		on_attach = on_attach,
