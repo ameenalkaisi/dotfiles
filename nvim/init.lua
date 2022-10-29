@@ -62,7 +62,7 @@ vim.keymap.set('n', '<leader>f', ':FZF<CR>', opts)
 vim.keymap.set('n', '<leader>nn', ':NERDTreeToggle<CR>', opts)
 vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
 -- todo: set up harpoon mappings
-vim.keymap.set('n', "<leader>ha", ':lua require("harpoon.mark").add_file()<CR>', opts)
+vim.keymap.set('n', "<leader>hn", ':lua require("harpoon.mark").add_file()<CR>', opts)
 vim.keymap.set('n', "<leader>hh", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
 for i = 1, 5 do
 	vim.keymap.set('n', string.format("<leader>h%d", i), string.format(":lua require('harpoon.ui').nav_file(%d)<CR>", i), opts)
