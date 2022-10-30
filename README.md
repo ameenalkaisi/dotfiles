@@ -14,6 +14,7 @@ You can also use GNU stow for some configurations in Linux. Supported ones curre
 - tmux
 - vim
 - polybar
+- dwm
 
 ## for vim
 Create ~/.vim/colors directories, and get candycolor from google then put 
