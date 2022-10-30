@@ -13,6 +13,7 @@ You can also use GNU stow for some configurations in Linux. Supported ones curre
 - nvim
 - tmux
 - vim
+- polybar
 
 ## for vim
 Create ~/.vim/colors directories, and get candycolor from google then put 
