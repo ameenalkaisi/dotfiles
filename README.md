@@ -8,6 +8,12 @@ ln -s <source which would be in this git repo>
 <destination based on instructions>
 ```
 
+You can also use GNU stow for some configurations in Linux. Supported ones currently are:
+- bash
+- nvim
+- tmux
+- vim
+
 ## for vim
 Create ~/.vim/colors directories, and get candycolor from google then put 
 it in that directory
