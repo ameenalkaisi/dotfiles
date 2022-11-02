@@ -65,7 +65,8 @@ vim.keymap.set('n', '<leader>nf', ':NERDTreeFind<CR>', opts)
 vim.keymap.set('n', "<leader>hn", ':lua require("harpoon.mark").add_file()<CR>', opts)
 vim.keymap.set('n', "<leader>hh", ':lua require("harpoon.ui").toggle_quick_menu()<CR>', opts)
 for i = 1, 5 do
-	vim.keymap.set('n', string.format("<leader>h%d", i), string.format(":lua require('harpoon.ui').nav_file(%d)<CR>", i), opts)
+	vim.keymap.set('n', string.format("<leader>h%d", i), string.format(":lua require('harpoon.ui').nav_file(%d)<CR>", i),
+		opts)
 end
 -- need to open menu, and go to file numbers by perhaps c-#
 
@@ -104,7 +105,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
 	vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-	vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+	vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 end
 
 local cmp = require 'cmp'
@@ -168,13 +169,14 @@ cmp.setup.cmdline(':', {
 })
 
 -- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Setup lspconfig.
 local lspconfig = require("lspconfig")
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'ccls', 'sumneko_lua', 'dockerls', 'jsonls', 'yamlls', 'rust_analyzer', 'texlab', 'ansiblels', 'jdtls', 'cssls', 'csharp_ls' }
+local servers = { 'ccls', 'sumneko_lua', 'dockerls', 'jsonls', 'yamlls', 'rust_analyzer', 'texlab', 'ansiblels', 'jdtls',
+	'cssls', 'csharp_ls' }
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		on_attach = on_attach,
