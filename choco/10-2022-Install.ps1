@@ -8,6 +8,7 @@ choco install chocolatey-windowsupdate.extension -y
 choco install curl -y
 choco install diffuse -y
 choco install dotnet-6.0-runtime -y
+choco install du -y
 choco install eclipse -y
 choco install gawk -y
 choco install gimp -y
@@ -25,6 +26,7 @@ choco install kubernetes-cli -y
 choco install kubernetes-helm -y
 choco install less -y
 choco install llvm -y
+choco install Ln -y
 choco install make -y
 choco install miktex -y
 choco install miktex.install -y
