@@ -13,21 +13,11 @@ return require('packer').startup(
 		use 'tpope/vim-fugitive'
 		use 'jose-elias-alvarez/nvim-lsp-ts-utils'
 		use 'alvan/vim-closetag'
-		use
-		{
-			'nvim-lualine/lualine.nvim',
-			requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-		}
+		use 'kyazdani42/nvim-web-devicons'
+		use 'nvim-lualine/lualine.nvim'
 		use 'folke/tokyonight.nvim'
 		use 'ellisonleao/gruvbox.nvim'
-		use
-		{
-			'goolord/alpha-nvim',
-			requires = { 'kyazdani42/nvim-web-devicons' },
-			config = function()
-				require 'alpha'.setup(require 'alpha.themes.startify'.config)
-			end
-		}
+		use 'goolord/alpha-nvim'
 		use 'akinsho/toggleterm.nvim'
 		use 'ThePrimeagen/harpoon'
 		use 'folke/which-key.nvim'

@@ -15,6 +15,7 @@ require("toggleterm").setup({
 })
 require("harpoon").setup {}
 require("which-key").setup {}
+require 'alpha'.setup(require 'alpha.themes.startify'.config)
 
 ---@diagnostic disable: unused-local, undefined-global
 vim.wo.number = true
@@ -26,7 +27,7 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.go.signcolumn = "yes"
 vim.go.hidden = true
 vim.go.smarttab = true
-vim.go.mouse = a
+vim.go.mouse = "a"
 vim.go.encoding = "utf-8"
 vim.go.belloff = "all"
 
