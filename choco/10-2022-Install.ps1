@@ -10,6 +10,7 @@ choco install diffuse -y
 choco install dotnet-6.0-runtime -y
 choco install du -y
 choco install eclipse -y
+choco install firefox -y
 choco install gawk -y
 choco install gimp -y
 choco install go -y
