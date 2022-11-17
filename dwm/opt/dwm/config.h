@@ -70,14 +70,14 @@ static const char *brightness_higher_cmd[] = { "brightnessctl", "set", "+5%", NU
 static const char *inc_volume[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
 static const char *dec_volume[] = { "pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 static const char *mute_volume[] = { "pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle", NULL };
-static const char *chromium[] = { "chromium", NULL };
+static const char *firefox[] = { "firefox", NULL };
 static const char *flameshot[] = { "flameshot", "gui",  NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = chromium } },
+    { MODKEY|ShiftMask,             XK_b,      spawn,          {.v = firefox } },
     { MODKEY|ShiftMask,             XK_s,      spawn,          {.v = flameshot } },
     { 0,                            XK_F2,     spawn,          {.v = brightness_lower_cmd } },
     { 0,                            XK_F3,     spawn,          {.v = brightness_higher_cmd } },
