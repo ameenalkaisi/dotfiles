@@ -30,5 +30,6 @@ return require('packer').startup(
 		use 'SirVer/ultisnips'
 		use 'quangnguyen30192/cmp-nvim-ultisnips'
 		use 'tpope/vim-surround'
+		use 'onsails/lspkind-nvim'
 	end
 )
