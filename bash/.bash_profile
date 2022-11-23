@@ -8,4 +8,3 @@ export PS1="\[$STARTCOLOR\][\@] \u@\h:\W\$ \[$ENDCOLOR\]"
 # set vi editing mode
 set -o vi
 bind -m vi-insert "\C-l":clear-screen
-. "$HOME/.cargo/env"
