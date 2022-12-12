@@ -14,8 +14,8 @@ if ($host.Name -eq 'ConsoleHost') {
 	#Set-PSReadlineKeyHandler -Chord "Ctrl+Oem4" -Function ViCommandMode
 
 	New-Alias vi C:\Windows\vim.bat
-	New-Alias vim nvim-qt
+	New-Alias vim neovide
 
-	Function OpenNvimConfig { nvim-qt C:\Users\ameen\AppData\Local\nvim }
+	Function OpenNvimConfig { neovide C:\Users\ameen\AppData\Local\nvim }
 	New-Alias nvimconf OpenNvimConfig
 }
