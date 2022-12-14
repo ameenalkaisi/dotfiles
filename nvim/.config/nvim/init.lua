@@ -17,6 +17,7 @@ require("harpoon").setup({})
 require("which-key").setup({})
 require("alpha").setup(require("alpha.themes.startify").config)
 require("symbols-outline").setup()
+require("bufferline").setup({})
 require("gitsigns").setup({
 	on_attach = function(bufnr)
 		local gs = package.loaded.gitsigns
@@ -76,6 +77,7 @@ vim.wo.relativenumber = true
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.termguicolors = true
 
 vim.go.signcolumn = "yes"
 vim.go.hidden = true
