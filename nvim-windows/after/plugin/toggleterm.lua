@@ -1,6 +1,6 @@
 require("toggleterm").setup({
     size = 20,
-	open_mapping = "<leader>.",
+	open_mapping = [[<C-\>]],
 	close_on_exit = true,
 	start_in_insert = true,
 	hide_numbers = true,
