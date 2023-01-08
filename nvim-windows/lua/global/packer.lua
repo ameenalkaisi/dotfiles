@@ -98,4 +98,9 @@ return require("packer").startup(function(use)
             require("bufferline").setup {}
         end
     }
+    use {
+        "nvim-neorg/neorg",
+        run = ":Neorg sync-parsers", -- This is the important bit!
+        requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" }
+    }
 end)

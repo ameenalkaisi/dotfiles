@@ -1,6 +1,7 @@
 require("global.set")
 require("global.remap")
 require("global.packer")
+require("global.neovide")
 
 local augroup = vim.api.nvim_create_augroup
 local fix_spaces_group = augroup('FixSpaces', {})

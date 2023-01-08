@@ -8,13 +8,16 @@ if ($host.Name -eq 'ConsoleHost') {
 	Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
 	Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
 	Import-Module -Name Terminal-Icons
-	
+
 	#Set-PSReadLineOption -EditMode Vi -ViModeIndicator Cursor
 	Set-PSReadLineOption -PredictionSource History
 	#Set-PSReadlineKeyHandler -Chord "Ctrl+Oem4" -Function ViCommandMode
 
 	New-Alias vi C:\Windows\vim.bat
 	New-Alias vim neovide
+
+	Function OpenNotesNvim { neovide C:\Users\ameen\notes\home }
+	New-Alias homenotes OpenNotesNvim
 
 	Function OpenNvimConfig { neovide C:\Users\ameen\AppData\Local\nvim }
 	New-Alias nvimconf OpenNvimConfig
