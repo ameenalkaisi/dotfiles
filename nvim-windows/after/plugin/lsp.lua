@@ -1,12 +1,6 @@
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-local has_words_before = function()
-    unpack = unpack or table.unpack
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
 function on_attach()
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -26,7 +20,7 @@ function on_attach()
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', '<leader>rr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-    vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts)
+    vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, bufopts)
 end
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
@@ -63,7 +57,20 @@ require("mason-lspconfig").setup_handlers {
             }
         }
     end,
+    ["jdtls"] = function() -- handled under ftplugin
+    end,
+    ["rust_analyzer"] = function()
+        require("rust-tools").setup {
+            server = { on_attach = on_attach }
+        }
+    end
 }
+
+local has_words_before = function()
+    unpack = unpack or table.unpack
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
 local luasnip = require("luasnip")
 

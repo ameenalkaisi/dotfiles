@@ -92,4 +92,6 @@ return require("packer").startup(function(use)
     }
     use { 'nvim-orgmode/orgmode' }
     use { 'tpope/vim-repeat' }
+    use { 'mfussenegger/nvim-jdtls' }
+    use { 'simrat39/rust-tools.nvim' }
 end)
