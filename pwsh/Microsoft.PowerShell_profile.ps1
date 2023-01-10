@@ -16,8 +16,8 @@ if ($host.Name -eq 'ConsoleHost') {
 	New-Alias vi C:\Windows\vim.bat
 	New-Alias vim neovide
 
-	Function OpenNotesNvim { neovide C:\Users\ameen\notes\home }
-	New-Alias homenotes OpenNotesNvim
+	Function OpenNotesNvim { neovide C:\Users\ameen\notes }
+	New-Alias notes OpenNotesNvim
 
 	Function OpenNvimConfig { neovide C:\Users\ameen\AppData\Local\nvim }
 	New-Alias nvimconf OpenNvimConfig

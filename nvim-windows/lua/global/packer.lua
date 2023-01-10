@@ -12,13 +12,10 @@ return require("packer").startup(function(use)
         requires = { { "nvim-lua/plenary.nvim" } }
     }
 
-    use({
+    use {
         "rose-pine/neovim",
-        as = "rose-pine",
-        config = function()
-            vim.cmd("colorscheme rose-pine")
-        end
-    })
+        as = "rose-pine"
+    }
     use {
         "folke/which-key.nvim",
         config = function()
@@ -61,12 +58,7 @@ return require("packer").startup(function(use)
     use("rafamadriz/friendly-snippets")
     use("folke/zen-mode.nvim")
     -- use("github/copilot.vim")
-    use({
-        "nvim-tree/nvim-tree.lua",
-        config = function()
-            require("nvim-tree").setup()
-        end
-    })
+    use("nvim-tree/nvim-tree.lua")
     use("onsails/lspkind.nvim")
     use {
         "lukas-reineke/indent-blankline.nvim",
@@ -98,9 +90,6 @@ return require("packer").startup(function(use)
             require("bufferline").setup {}
         end
     }
-    use {
-        "nvim-neorg/neorg",
-        run = ":Neorg sync-parsers", -- This is the important bit!
-        requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" }
-    }
+    use { 'nvim-orgmode/orgmode' }
+    use { 'tpope/vim-repeat' }
 end)

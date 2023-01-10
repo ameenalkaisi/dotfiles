@@ -1,5 +1,5 @@
 dwm/*kb*.o
-nvim/plugin
 dwm/opt
 !dwm/opt/dwm
 nvim/.config/nvim/plugin
+nvim-windows/plugin
