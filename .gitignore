@@ -3,3 +3,4 @@ dwm/opt
 !dwm/opt/dwm
 nvim/.config/nvim/plugin
 nvim-windows/plugin
+vim/.vim/undodir
