@@ -1,3 +1,5 @@
+-- This file can be loaded by calling `lua require("plugins")` from your init.vim
+
 -- Only required if you have packer configured as `opt`
 vim.cmd.packadd("packer.nvim")
 
@@ -12,10 +14,13 @@ return require("packer").startup(function(use)
         requires = { { "nvim-lua/plenary.nvim" } }
     }
 
-    use {
+    use({
         "rose-pine/neovim",
-        as = "rose-pine"
-    }
+        as = "rose-pine",
+        config = function()
+            vim.cmd("colorscheme rose-pine")
+        end
+    })
     use {
         "folke/which-key.nvim",
         config = function()
@@ -58,14 +63,15 @@ return require("packer").startup(function(use)
     use("rafamadriz/friendly-snippets")
     use("folke/zen-mode.nvim")
     -- use("github/copilot.vim")
-    use("nvim-tree/nvim-tree.lua")
-    use("onsails/lspkind.nvim")
-    use {
-        "lukas-reineke/indent-blankline.nvim",
+    use({
+        "nvim-tree/nvim-tree.lua",
         config = function()
-            require("indent_blankline").setup {}
+            require("nvim-tree").setup()
         end
-    }
+    })
+    use("onsails/lspkind.nvim")
+    use("lukas-reineke/indent-blankline.nvim")
+    use("akinsho/bufferline.nvim")
     use("lewis6991/gitsigns.nvim")
     use({
         "simrat39/symbols-outline.nvim",
@@ -81,16 +87,4 @@ return require("packer").startup(function(use)
             require("trouble").setup {}
         end
     }
-    use("jose-elias-alvarez/null-ls.nvim")
-    use { 'akinsho/bufferline.nvim',
-        tag = "v3.*",
-        requires = 'nvim-tree/nvim-web-devicons',
-        config = function()
-            require("bufferline").setup {}
-        end
-    }
-    use { 'nvim-orgmode/orgmode' }
-    use { 'tpope/vim-repeat' }
-    use { 'mfussenegger/nvim-jdtls' }
-    use { 'simrat39/rust-tools.nvim' }
 end)
