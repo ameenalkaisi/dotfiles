@@ -4,6 +4,7 @@ vim.cmd.packadd("packer.nvim")
 return require("packer").startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
+    use 'tpope/vim-sleuth'
 
     -- Packer can manage itself
     use {
@@ -11,11 +12,17 @@ return require("packer").startup(function(use)
         -- or                            , branch = "0.1.x",
         requires = { { "nvim-lua/plenary.nvim" } }
     }
-
+    use {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("indent_blankline").setup {}
+        end
+    }
     use {
         "rose-pine/neovim",
         as = "rose-pine"
     }
+    use { "ellisonleao/gruvbox.nvim" }
     use {
         "folke/which-key.nvim",
         config = function()
@@ -60,12 +67,6 @@ return require("packer").startup(function(use)
     -- use("github/copilot.vim")
     use("nvim-tree/nvim-tree.lua")
     use("onsails/lspkind.nvim")
-    use {
-        "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            require("indent_blankline").setup {}
-        end
-    }
     use("lewis6991/gitsigns.nvim")
     use({
         "simrat39/symbols-outline.nvim",
@@ -94,4 +95,27 @@ return require("packer").startup(function(use)
     use { 'tpope/vim-repeat' }
     use { 'mfussenegger/nvim-jdtls' }
     use { 'simrat39/rust-tools.nvim' }
+    use { 'norcalli/nvim-colorizer.lua',
+        config = function()
+            require("colorizer").setup {}
+        end
+    }
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
+    use({
+        "glepnir/lspsaga.nvim",
+        branch = "main",
+        config = function()
+            require("lspsaga").setup({})
+        end,
+        requires = { { "nvim-tree/nvim-web-devicons" } }
+    })
 end)
