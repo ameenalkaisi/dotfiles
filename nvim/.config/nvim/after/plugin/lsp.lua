@@ -64,8 +64,8 @@ require("mason-lspconfig").setup_handlers {
     end,
     ["rust_analyzer"] = function()
         local extension_path = os.getenv("HOME") .. "/.local/share/nvim/mason/packages/codelldb/extension/"
-        local codelldb_path = extension_path .. 'adapter/codelldb.exe'
-        local liblldb_path = extension_path .. 'lldb/lib/liblldb.lib'
+        local codelldb_path = extension_path .. 'adapter/codelldb'
+        local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
 
         require("rust-tools").setup {
             server = {
