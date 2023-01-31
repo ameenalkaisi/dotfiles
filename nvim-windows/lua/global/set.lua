@@ -33,14 +33,3 @@ vim.opt.colorcolumn = "0"
 
 vim.opt.conceallevel = 2
 vim.opt.concealcursor = 'nc'
-
-
-require('rose-pine').setup()
-vim.o.background = "dark"
-
-function ColorNvim(color)
-    color = color or "rose-pine"
-    vim.cmd.colorscheme(color)
-end
-
-ColorNvim("gruvbox")
