@@ -4,3 +4,4 @@ dwm/opt
 nvim/.config/nvim/plugin
 nvim-windows/plugin
 vim/.vim/undodir
+vim/.vim/.netrwhist

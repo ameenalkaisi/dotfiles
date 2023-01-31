@@ -3,6 +3,7 @@ alias sudo-py="sudo python3.10"
 alias cd..="cd .."
 alias open="xdg-open"
 alias ll="ls -la"
+alias ls='ls --color=auto'
 
 # maybe change if not using apt
 alias mass-update-aria2="sudo apt-fast update -y && sudo apt-fast upgrade -y && sudo apt-fast dist-upgrade -y"
