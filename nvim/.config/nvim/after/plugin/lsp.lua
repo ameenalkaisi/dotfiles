@@ -1,26 +1,37 @@
+require("neodev").setup({
+    library = { plugins = { "nvim-dap-ui" }, types = true }
+})
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-function on_attach()
+local function on_attach(_, bufnr)
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set({ 'n', 'i' }, '<C-k>', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set('n', '<leader>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', '<leader>rr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
-    vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, bufopts)
+    -- vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+    -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+    -- vim.keymap.set('n', '<leader>rr', vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', '<leader>f', function()
+        vim.lsp.buf.format {
+            --         -- disable tsserver formatting as it is very different from
+            --         -- prettier, and not good at all
+            --         -- at least by default
+            filter = function(client) return client.name ~= "tsserver" end,
+            async = true,
+        }
+    end, bufopts)
+    --vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, bufopts)
 end
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
@@ -40,7 +51,6 @@ vim.diagnostic.config({
 })
 
 local lspconfig = require("lspconfig")
-
 require("mason-lspconfig").setup_handlers {
     -- The first entry (without a key) will be the default handler
     -- and will be called for each installed server that doesn't have
@@ -48,26 +58,28 @@ require("mason-lspconfig").setup_handlers {
     function(server_name) -- default handler (optional)
         lspconfig[server_name].setup {
             on_attach = on_attach,
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { 'vim' }
-                    }
-                }
-            }
         }
     end,
     ["jdtls"] = function() -- handled under ftplugin
     end,
     ["rust_analyzer"] = function()
+        local extension_path = os.getenv("HOME") .. "/.local/share/nvim/mason/packages/codelldb/extension/"
+        local codelldb_path = extension_path .. 'adapter/codelldb.exe'
+        local liblldb_path = extension_path .. 'lldb/lib/liblldb.lib'
+
         require("rust-tools").setup {
-            server = { on_attach = on_attach }
+            server = {
+                on_attach = on_attach,
+            },
+            dap = {
+                adapter = require('rust-tools.dap').get_codelldb_adapter(
+                    codelldb_path, liblldb_path)
+            }
         }
     end
 }
 
 local has_words_before = function()
-    unpack = unpack or table.unpack
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
@@ -92,7 +104,7 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-Space>"] = cmp.mapping.complete({}),
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<Tab>"] = cmp.mapping(function(fallback)

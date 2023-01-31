@@ -6,13 +6,11 @@ return require("packer").startup(function(use)
     use 'wbthomason/packer.nvim'
     use 'tpope/vim-sleuth'
 
-    -- Packer can manage itself
     use {
         "nvim-telescope/telescope.nvim", tag = "0.1.0",
         -- or                            , branch = "0.1.x",
         requires = { { "nvim-lua/plenary.nvim" } }
     }
-
     use {
         "rose-pine/neovim",
         as = "rose-pine"
@@ -62,12 +60,6 @@ return require("packer").startup(function(use)
     -- use("github/copilot.vim")
     use("nvim-tree/nvim-tree.lua")
     use("onsails/lspkind.nvim")
-    use {
-        "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            require("indent_blankline").setup {}
-        end
-    }
     use("lewis6991/gitsigns.nvim")
     use({
         "simrat39/symbols-outline.nvim",
@@ -118,4 +110,19 @@ return require("packer").startup(function(use)
         end,
         requires = { { "nvim-tree/nvim-web-devicons" } }
     })
+    use {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("indent_blankline").setup {}
+        end
+    }
+    use "folke/neodev.nvim"
+
+    -- dap related plugins
+    use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+    use { "theHamsta/nvim-dap-virtual-text",
+        requires = { "nvim-treesitter", "nvim-dap" },
+        config = function()
+            require("nvim-dap-virtual-text").setup()
+        end }
 end)

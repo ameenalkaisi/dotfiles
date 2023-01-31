@@ -76,7 +76,6 @@ require("mason-lspconfig").setup_handlers {
                     codelldb_path, liblldb_path)
             }
         }
-
     end
 }
 
