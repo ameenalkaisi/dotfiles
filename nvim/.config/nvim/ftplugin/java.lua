@@ -1,10 +1,33 @@
 -- note: if pulling this, must update  these values
-local jdtls_install_location = os.getenv("HOME") .. "/.local/share/nvim/mason/packages/jdtls"
+local mason_location = os.getenv("HOME") .. "/.local/share/nvim/mason/packages"
+
+local jdtls_install_location = mason_location .. "/jdtls"
 local version_number = "1.6.400.v20210924-0641"
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
 local workspace_dir = os.getenv("HOME") .. '/var/log/jdtls/' .. project_name
+
+local bundles = {
+    vim.fn.glob(mason_location .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", true),
+};
+
+-- This is the new part
+vim.list_extend(bundles, vim.split(vim.fn.glob(mason_location .. "/java-test/extension/server/*.jar", true), "\n", {}),
+    1,
+    #bundles)
+
+-- set up recommended convenience commands
+vim.cmd [[
+command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)
+command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)
+command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()
+command! -buffer JdtJol lua require('jdtls').jol()
+command! -buffer JdtBytecode lua require('jdtls').javap()
+command! -buffer JdtJshell lua require('jdtls').jshell()
+command! -buffer JdtTestClass lua require('jdtls').test_class()
+command! -buffer JdtTestNearestMethod lua require('jdtls').test_nearest_method()
+]]
 
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
@@ -66,9 +89,13 @@ local config = {
     --
     -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
     init_options = {
-        bundles = {}
+        bundles = bundles;
     },
+    on_attach = function(client, bufnr)
+        require("jdtls").setup_dap({ hotcodereplace = 'auto' })
+        require('jdtls.dap').setup_dap_main_class_configs()
 
-    on_attach = on_attach,
+        require("global.lsp").on_attach(client, bufnr);
+    end,
 }
 require('jdtls').start_or_attach(config)

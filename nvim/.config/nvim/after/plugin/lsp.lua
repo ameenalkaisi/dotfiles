@@ -4,36 +4,6 @@ require("neodev").setup({
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-local function on_attach(_, bufnr)
-    -- Mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set({ 'n', 'i' }, '<C-k>', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set('n', '<leader>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-    -- vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-    -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    -- vim.keymap.set('n', '<leader>rr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<leader>f', function()
-        vim.lsp.buf.format {
-            --         -- disable tsserver formatting as it is very different from
-            --         -- prettier, and not good at all
-            --         -- at least by default
-            filter = function(client) return client.name ~= "tsserver" end,
-            async = true,
-        }
-    end, bufopts)
-    --vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, bufopts)
-end
-
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
     vim.lsp.handlers.signature_help,
     { border = 'rounded' }
@@ -50,6 +20,8 @@ vim.diagnostic.config({
     }
 })
 
+local custom_on_attach = require("global.lsp").on_attach
+
 local lspconfig = require("lspconfig")
 require("mason-lspconfig").setup_handlers {
     -- The first entry (without a key) will be the default handler
@@ -57,7 +29,7 @@ require("mason-lspconfig").setup_handlers {
     -- a dedicated handler.
     function(server_name) -- default handler (optional)
         lspconfig[server_name].setup {
-            on_attach = on_attach,
+            on_attach = custom_on_attach,
         }
     end,
     ["jdtls"] = function() -- handled under ftplugin
@@ -69,7 +41,7 @@ require("mason-lspconfig").setup_handlers {
 
         require("rust-tools").setup {
             server = {
-                on_attach = on_attach,
+                on_attach = custom_on_attach,
             },
             dap = {
                 adapter = require('rust-tools.dap').get_codelldb_adapter(
