@@ -9,15 +9,6 @@ local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 -- place java files into ~/.jdtls for this windows config
 local workspace_dir = os.getenv("UserProfile") .. '/.jdtls/' .. project_name
 
--- local bundles = {
---     vim.fn.glob(mason_location .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", true)
--- }
---
--- vim.list_extend(bundles, vim.split(vim.fn.glob(mason_location .. "/java-test/extension/server/*.jar", true), "\n", {})
---     , 1
---     , #bundles)
-
--- This bundles definition is the same as in the previous section (java-debug installation)
 local bundles = {
     vim.fn.glob(mason_location .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", true),
 };
