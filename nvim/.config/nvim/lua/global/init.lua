@@ -1,5 +1,6 @@
 require("global.set")
 require("global.remap")
+require("global.neovide")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

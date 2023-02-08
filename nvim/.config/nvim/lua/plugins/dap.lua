@@ -55,7 +55,7 @@ return {
 				request = "launch",
 				program = function()
 					---@diagnostic disable-next-line: param-type-mismatch, redundant-parameter
-					return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '\\', 'file')
+					return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
 				end,
 				cwd = '${workspaceFolder}',
 				stopOnEntry = false,
@@ -71,7 +71,7 @@ return {
 			port = "${port}",
 			executable = {
 				-- CHANGE THIS to your path!
-				command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/codelldb",
+				command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
 				args = { "--port", "${port}" },
 
 				-- On windows you may have to uncomment this:

@@ -1,5 +1,5 @@
 -- note: if pulling this, must update  these values
-local mason_location = os.getenv("HOME") .. "/.local/share/nvim/mason/packages"
+local mason_location = vim.fn.stdpath("data") .. "/mason/packages"
 
 local jdtls_install_location = mason_location .. "/jdtls"
 
@@ -11,7 +11,17 @@ local equinox_launcher_jars =
 local cur_equinox_launcher = equinox_launcher_jars[1]
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
-local workspace_dir = os.getenv("HOME") .. '/var/log/jdtls/' .. project_name
+local workspace_dir = ""
+local cur_config = ""
+local sysname = vim.loop.os_uname().sysname
+if sysname == 'Darwin' or sysname == 'Linux' then
+    workspace_dir = os.getenv("HOME") .. '/var/log/jdtls/' .. project_name
+    cur_config = "linux"
+elseif sysname:find 'Windows' and true or false then
+    require 'nvim-treesitter.install'.compilers = { "clang" }
+    workspace_dir = os.getenv("UserProfile") .. '/.jdtls/' .. project_name
+    cur_config = "win"
+end
 
 local bundles = {
     vim.fn.glob(mason_location .. "/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", true),
@@ -65,7 +75,7 @@ local config = {
 
 
         -- 💀
-        '-configuration', jdtls_install_location .. '/config_linux',
+        '-configuration', jdtls_install_location .. '/config_' .. cur_config,
         -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
         -- Must point to the                      Change to one of `linux`, `win` or `mac`
         -- eclipse.jdt.ls installation            Depending on your system.

@@ -16,7 +16,15 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+
+local sysname = vim.loop.os_uname().sysname
+if sysname == 'Darwin' or sysname == 'Linux' then
+	vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+elseif sysname:find 'Windows' and true or false then
+	vim.opt.undodir = "C:/Users/ameen/.vim/undodir"
+end
+
+
 vim.opt.undofile = true
 
 vim.opt.incsearch = true

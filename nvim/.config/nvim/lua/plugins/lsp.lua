@@ -31,9 +31,9 @@ return {
         require("mason-lspconfig").setup()
 
         vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-            vim.lsp.handlers.signature_help,
-            { border = 'rounded' }
-        )
+                vim.lsp.handlers.signature_help,
+                { border = 'rounded' }
+            )
 
         vim.diagnostic.config({
             virtual_text = false,
@@ -61,7 +61,7 @@ return {
             ["jdtls"] = function() -- handled under ftplugin
             end,
             ["rust_analyzer"] = function()
-                local extension_path = os.getenv("HOME") .. "/.local/share/nvim/mason/packages/codelldb/extension/"
+                local extension_path = vim.fn.stdpath("data") .. "/codelldb/extension/"
                 local codelldb_path = extension_path .. 'adapter/codelldb'
                 local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
 
@@ -100,7 +100,7 @@ return {
                 documentation = cmp.config.window.bordered(),
             },
             mapping = cmp.mapping.preset.insert({
-                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-b>"] = cmp.mapping.scroll_docs( -4),
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
                 ["<C-Space>"] = cmp.mapping.complete({}),
                 ["<C-e>"] = cmp.mapping.abort(),
@@ -119,8 +119,8 @@ return {
                 ["<S-Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_prev_item()
-                    elseif luasnip.jumpable(-1) then
-                        luasnip.jump(-1)
+                    elseif luasnip.jumpable( -1) then
+                        luasnip.jump( -1)
                     else
                         fallback()
                     end
