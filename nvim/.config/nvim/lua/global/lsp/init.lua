@@ -1,6 +1,6 @@
 local M = {}
 
-function M.on_attach(client, bufnr)
+function M.on_attach(_, bufnr)
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }

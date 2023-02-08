@@ -57,7 +57,7 @@ local config = {
 
 
         -- 💀
-        '-configuration', jdtls_install_location .. '/config_win',
+        '-configuration', jdtls_install_location .. '/config_linux',
         -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
         -- Must point to the                      Change to one of `linux`, `win` or `mac`
         -- eclipse.jdt.ls installation            Depending on your system.
@@ -67,12 +67,10 @@ local config = {
         -- See `data directory configuration` section in the README
         '-data', workspace_dir
     },
-
     -- 💀
     -- This is the default if not provided, you can remove it. Or adjust as needed.
     -- One dedicated LSP server & client will be started per unique root_dir
     root_dir = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew' }),
-
     -- Here you can configure eclipse.jdt.ls specific settings
     -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
     -- for a list of options
@@ -80,7 +78,6 @@ local config = {
         java = {
         }
     },
-
     -- Language server `initializationOptions`
     -- You need to extend the `bundles` with paths to jar files
     -- if you want to use additional eclipse.jdt.ls plugins.
@@ -89,7 +86,7 @@ local config = {
     --
     -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
     init_options = {
-        bundles = bundles;
+        bundles = bundles,
     },
     on_attach = function(client, bufnr)
         require("jdtls").setup_dap({ hotcodereplace = 'auto' })
