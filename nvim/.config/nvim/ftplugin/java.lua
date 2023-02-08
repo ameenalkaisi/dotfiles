@@ -2,8 +2,13 @@
 local mason_location = os.getenv("HOME") .. "/.local/share/nvim/mason/packages"
 
 local jdtls_install_location = mason_location .. "/jdtls"
-local version_number = "1.6.400.v20210924-0641"
 
+-- if there are multiple versions, select the first one found
+local equinox_launcher_jars =
+    vim.split(vim.fn.glob(jdtls_install_location .. '/plugins/org.eclipse.equinox.launcher_*.jar',
+        true), "\n", {})
+
+local cur_equinox_launcher = equinox_launcher_jars[1]
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
 local workspace_dir = os.getenv("HOME") .. '/var/log/jdtls/' .. project_name
@@ -13,9 +18,11 @@ local bundles = {
 };
 
 -- This is the new part
-vim.list_extend(bundles, vim.split(vim.fn.glob(mason_location .. "/java-test/extension/server/*.jar", true), "\n", {}),
+local all_jars = vim.fn.glob(mason_location .. "/java-test/extension/server/*.jar", true)
+vim.list_extend(bundles,
+    vim.split(all_jars, "\n", {}),
     1,
-    #bundles)
+    #all_jars)
 
 -- set up recommended convenience commands
 vim.cmd [[
@@ -50,7 +57,8 @@ local config = {
 
         -- 💀
         '-jar',
-        jdtls_install_location .. '/plugins/org.eclipse.equinox.launcher_' .. version_number .. '.jar',
+        cur_equinox_launcher,
+        -- jdtls_install_location .. '/plugins/org.eclipse.equinox.launcher_' .. version_number .. '.jar',
         -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                    ^^^^^^^^^^^^^^
         -- Must point to the                                                     Change this to
         -- eclipse.jdt.ls installation                                           the actual version
@@ -86,7 +94,7 @@ local config = {
     --
     -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
     init_options = {
-        bundles = bundles,
+        bundles = bundles
     },
     on_attach = function(client, bufnr)
         require("jdtls").setup_dap({ hotcodereplace = 'auto' })
