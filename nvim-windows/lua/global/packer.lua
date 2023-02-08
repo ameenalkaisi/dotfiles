@@ -38,6 +38,8 @@ return require("packer").startup(function(use)
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
+        "jose-elias-alvarez/null-ls.nvim",
+        "jay-babu/mason-null-ls.nvim",
     })
     use({
         "kylechui/nvim-surround",
@@ -75,7 +77,6 @@ return require("packer").startup(function(use)
             require("trouble").setup {}
         end
     }
-    use("jose-elias-alvarez/null-ls.nvim")
     use("akinsho/toggleterm.nvim")
     use { 'akinsho/bufferline.nvim',
         tag = "v3.*",
