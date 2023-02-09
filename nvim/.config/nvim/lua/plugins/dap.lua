@@ -74,8 +74,8 @@ return {
 				command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
 				args = { "--port", "${port}" },
 
-				-- On windows you may have to uncomment this:
-				-- detached = false,
+				-- On windows it will become false, other systems it is true
+				detached = require("global.system").cursys ~= "Windows",
 			}
 		}
 	end
