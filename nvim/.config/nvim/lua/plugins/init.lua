@@ -73,8 +73,6 @@ return {
         'lukas-reineke/indent-blankline.nvim',
         config = true
     },
-
-    -- dap related plugins
     {
         'theHamsta/nvim-dap-virtual-text',
         dependencies = { 'nvim-treesitter', 'nvim-dap' },
