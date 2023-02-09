@@ -3,22 +3,35 @@ return {
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
         -- Lua
-        vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+        vim.keymap.set("n", "<leader>xx", vim.cmd.TroubleToggle,
             { silent = true, noremap = true }
         )
-        vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+        vim.keymap.set("n", "<leader>xw", function()
+            vim.cmd("TroubleToggle document_diagnostics")
+        end,
             { silent = true, noremap = true }
         )
-        vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
+        vim.keymap.set("n", "<leader>xd",
+            function()
+                vim.cmd("TroubleToggle document_diagnostics")
+            end,
             { silent = true, noremap = true }
         )
-        vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
+        vim.keymap.set("n", "<leader>xl",
+            function()
+                vim.cmd("TroubleToggle loclist")
+            end,
             { silent = true, noremap = true }
         )
-        vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+        vim.keymap.set("n", "<leader>xq",
+            function()
+                vim.cmd("TroubleToggle quickfix")
+            end,
             { silent = true, noremap = true }
         )
-        vim.keymap.set("n", "gR", "<cmd>TroubleToggle lsp_references<cr>",
+        vim.keymap.set("n", "gR", function()
+            vim.cmd("TroubleToggle lsp_references")
+        end,
             { silent = true, noremap = true }
         )
     end
