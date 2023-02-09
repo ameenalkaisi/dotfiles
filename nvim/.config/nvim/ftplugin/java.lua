@@ -13,11 +13,12 @@ local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
 local workspace_dir = ""
 local cur_config = ""
-local sysname = vim.loop.os_uname().sysname
-if sysname == 'Darwin' or sysname == 'Linux' then
+
+local sys = require("global.system").cursys
+if sys == "Mac" or sys == "Linux" then
     workspace_dir = os.getenv("HOME") .. '/var/log/jdtls/' .. project_name
     cur_config = "linux"
-elseif sysname:find 'Windows' and true or false then
+elseif sys == "Windows" then
     require 'nvim-treesitter.install'.compilers = { "clang" }
     workspace_dir = os.getenv("UserProfile") .. '/.jdtls/' .. project_name
     cur_config = "win"

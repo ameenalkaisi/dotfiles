@@ -17,10 +17,10 @@ vim.opt.smartindent = true
 vim.opt.wrap = false
 
 
-local sysname = vim.loop.os_uname().sysname
-if sysname == 'Darwin' or sysname == 'Linux' then
+local sys = require("global.system").cursys
+if sys == "Mac" or sys == "Linux" then
 	vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-elseif sysname:find 'Windows' and true or false then
+elseif sys == "Windows" then
 	vim.opt.undodir = "C:/Users/ameen/.vim/undodir"
 end
 

@@ -34,7 +34,7 @@ return {
             },
         }
 
-        if vim.loop.os_uname().sysname:find "Windows" and true or false then
+        if require("global.system").cursys == "Windows" then
             require("nvim-treesitter.install").compilers = { "clang" }
         end
     end

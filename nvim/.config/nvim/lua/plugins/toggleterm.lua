@@ -1,8 +1,7 @@
 return {
     'akinsho/toggleterm.nvim',
-
     -- windows-only
-    cond = vim.loop.os_uname().sysname:find "Windows" and true or false,
+    cond = require("global.system").cursys == "Windows",
     config = function()
         require("toggleterm").setup({
             size = 20,
