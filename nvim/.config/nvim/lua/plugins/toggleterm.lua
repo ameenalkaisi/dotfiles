@@ -1,9 +1,7 @@
 return {
     'akinsho/toggleterm.nvim',
     -- windows-only
-    enabled = function()
-        return require("global.system").cursys == "Windows"
-    end,
+    enabled = require("global.system").cursys == "Windows",
     config = function()
         require("toggleterm").setup({
             size = 20,
