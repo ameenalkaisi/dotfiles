@@ -70,7 +70,7 @@ return {
             port = "${port}",
             executable = {
                 -- CHANGE THIS to your path!
-                command = vim.fn.stdpath("data") .. "/mason/bin/codelldb",
+                command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb",
                 args = { "--port", "${port}" },
 
                 -- On windows it will become false, other systems it is true
