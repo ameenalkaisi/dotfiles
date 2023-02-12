@@ -1,41 +1,45 @@
 return {
     'mfussenegger/nvim-jdtls',
     'tpope/vim-repeat',
-    -- {
-    -- 	'rose-pine/neovim',
-    -- 	name = 'rose-pine',
-    -- 	lazy = false,
-    -- 	priority = 1000,
-    -- 	config = function()
-    -- 		require("rose-pine").setup()
-    -- 		vim.cmd('colorscheme rose-pine')
-    -- 	end
-    -- },
+    {
+        'rose-pine/neovim',
+        name = 'rose-pine',
+        dependencies = {
+            'ellisonleao/gruvbox.nvim',
+            'EdenEast/nightfox.nvim',
+            'rebelot/kanagawa.nvim',
+            'catppuccin/nvim',
+        },
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("rose-pine").setup()
+            -- set default colorscheme here
+            --
+            -- vim.cmd('colorscheme rose-pine')
+            -- vim.cmd('colorscheme gruvbox')
+            -- vim.cmd('colorscheme kanagawa')
+            -- vim.cmd('colorscheme catppuccin')
+            vim.cmd('colorscheme carbonfox')
+        end
+    },
     {
         'NMAC427/guess-indent.nvim',
         config = true
     },
     {
-        'ellisonleao/gruvbox.nvim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-	        vim.cmd('colorscheme gruvbox')
-        end
-    },
-    {
         "folke/which-key.nvim",
         config = function()
-	        vim.o.timeout = true
-	        vim.o.timeoutlen = 500
-	        require("which-key").setup()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 500
+            require("which-key").setup()
         end,
     },
     {
         'goolord/alpha-nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
-	        require 'alpha'.setup(require 'alpha.themes.startify'.config)
+            require 'alpha'.setup(require 'alpha.themes.startify'.config)
         end
     },
     {
@@ -47,9 +51,9 @@ return {
     {
         'simrat39/symbols-outline.nvim',
         config = function()
-	        require('symbols-outline').setup()
+            require('symbols-outline').setup()
 
-	        vim.keymap.set('n', '<leader>so', vim.cmd.SymbolsOutline)
+            vim.keymap.set('n', '<leader>so', vim.cmd.SymbolsOutline)
         end
     },
     {
