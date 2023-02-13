@@ -1,7 +1,14 @@
 return {
     "glepnir/lspsaga.nvim",
     event = "BufRead",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = {
+        "nvim-tree/nvim-web-devicons",
+        --Please make sure you install markdown and markdown_inline parser
+        "nvim-treesitter/nvim-treesitter",
+
+        -- Assuming this is needed since it can extend gitsigns
+        "lewis6991/gitsigns.nvim",
+    },
     config = function()
         require("lspsaga").setup({
         })
