@@ -81,5 +81,11 @@ return {
         'theHamsta/nvim-dap-virtual-text',
         dependencies = { 'nvim-treesitter', 'nvim-dap' },
         config = true
+    },
+    {
+        'miversen33/netman.nvim',
+        config = function ()
+            require("netman")
+        end
     }
 }
