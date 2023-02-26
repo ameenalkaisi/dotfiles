@@ -20,8 +20,8 @@ return {
 			)
 		end
 
-		vim.keymap.set('n', '[n', require("buffer_manager.ui").nav_prev)
-		vim.keymap.set('n', ']n', require("buffer_manager.ui").nav_next)
-		vim.keymap.set('n', '<leader>.', require("buffer_manager.ui").toggle_quick_menu)
+		vim.keymap.set('n', '[ ', require("buffer_manager.ui").nav_prev)
+		vim.keymap.set('n', '] ', require("buffer_manager.ui").nav_next)
+		vim.keymap.set('n', '<leader> ', require("buffer_manager.ui").toggle_quick_menu)
 	end
 }
