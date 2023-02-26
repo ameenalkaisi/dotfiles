@@ -84,7 +84,10 @@ return {
     },
     {
         'miversen33/netman.nvim',
-        config = function ()
+        -- for now this will only work on non-Windows
+        -- Systems since it freezes on Windows for some reason
+        enabled = require("global.system").cursys ~= "Windows",
+        config = function()
             require("netman")
         end
     }
