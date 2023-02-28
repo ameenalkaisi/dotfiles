@@ -55,6 +55,15 @@ return {
 
         require("mason-lspconfig").setup()
 
+        -- Stop LSPs on neovim exit
+        -- todo, test on tmux session switching
+        local stop_lsps = vim.api.nvim_create_augroup('StopLSPs', {})
+        vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
+            group = stop_lsps,
+            pattern = "*",
+            command = "LspStop",
+        })
+
         vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
             vim.lsp.handlers.signature_help,
             { border = 'rounded' }
@@ -215,6 +224,5 @@ return {
             'confirm_done',
             cmp_autopairs.on_confirm_done()
         )
-
     end
 }
