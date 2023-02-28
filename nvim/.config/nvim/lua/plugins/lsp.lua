@@ -17,6 +17,8 @@ return {
         'hrsh7th/cmp-cmdline',
         'saadparwaiz1/cmp_luasnip',
 
+        'windwp/nvim-autopairs',
+
         'L3MON4D3/LuaSnip',
         'rafamadriz/friendly-snippets',
 
@@ -54,9 +56,9 @@ return {
         require("mason-lspconfig").setup()
 
         vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-                vim.lsp.handlers.signature_help,
-                { border = 'rounded' }
-            )
+            vim.lsp.handlers.signature_help,
+            { border = 'rounded' }
+        )
 
         vim.diagnostic.config({
             virtual_text = false,
@@ -105,15 +107,18 @@ return {
             return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
         end
 
-        local luasnip = require("luasnip")
+        -- load luasnip's
+        require("luasnip.loaders.from_vscode").lazy_load()
 
+        -- set up cmp and luasnip
+        local luasnip = require("luasnip")
         local cmp = require("cmp")
         cmp.setup({
             snippet = {
                 -- REQUIRED - you must specify a snippet engine
                 expand = function(args)
                     -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                    luasnip.lsp_expand(args.body) -- For `luasnip` users.
                     -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
                     -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
                 end,
@@ -200,5 +205,16 @@ return {
                 { name = "cmdline" },
             }),
         })
+
+        require('nvim-autopairs').setup {}
+
+        -- If you want insert `(` after select function or method item
+        local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+        local cmp = require('cmp')
+        cmp.event:on(
+            'confirm_done',
+            cmp_autopairs.on_confirm_done()
+        )
+
     end
 }

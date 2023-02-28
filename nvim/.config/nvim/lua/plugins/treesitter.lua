@@ -1,5 +1,6 @@
 return {
     'nvim-treesitter/nvim-treesitter',
+    dependencies = 'windwp/nvim-ts-autotag',
     build = ':TSUpdate',
     config = function()
         require 'nvim-treesitter.configs'.setup {
@@ -35,6 +36,10 @@ return {
                     node_decremental = '<S-TAB>',
                 },
             },
+            autotag = {
+                enable = true,
+            },
+            indent = { enable = true },
         }
 
         if require("global.system").cursys == "Windows" then

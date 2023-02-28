@@ -13,7 +13,7 @@ return {
         lazy = false,
         priority = 1000,
         config = function()
-            require("rose-pine").setup()
+            require('rose-pine').setup()
             -- set default colorscheme here
             --
             -- vim.cmd('colorscheme rose-pine')
@@ -28,11 +28,11 @@ return {
         config = true
     },
     {
-        "folke/which-key.nvim",
+        'folke/which-key.nvim',
         config = function()
             vim.o.timeout = true
             vim.o.timeoutlen = 500
-            require("which-key").setup()
+            require('which-key').setup()
         end,
     },
     {
@@ -63,14 +63,22 @@ return {
     },
     {
         'norcalli/nvim-colorizer.lua',
-        config = true
+        config = function ()
+            require('colorizer').setup{}
+
+            vim.keymap.set('n', '<leader>ct', vim.cmd.ColorizerToggle)
+        end
+    },
+    {
+        'mrshmllow/document-color.nvim',
+        config = function ()
+            require('document-color').setup{};
+
+            vim.keymap.set('n', '<leader>dct', require('document-color').buf_toggle)
+        end
     },
     {
         'numToStr/Comment.nvim',
-        config = true
-    },
-    {
-        'windwp/nvim-autopairs',
         config = true
     },
     {
@@ -86,9 +94,9 @@ return {
         'miversen33/netman.nvim',
         -- for now this will only work on non-Windows
         -- Systems since it freezes on Windows for some reason
-        enabled = require("global.system").cursys ~= "Windows",
+        enabled = require('global.system').cursys ~= 'Windows',
         config = function()
-            require("netman")
+            require('netman')
         end
     }
 }
