@@ -1,5 +1,6 @@
 return {
     'mfussenegger/nvim-jdtls',
+    'JoosepAlviste/nvim-ts-context-commentstring',
     'tpope/vim-repeat',
     {
         'rose-pine/neovim',
@@ -63,23 +64,28 @@ return {
     },
     {
         'norcalli/nvim-colorizer.lua',
-        config = function ()
-            require('colorizer').setup{}
+        config = function()
+            require('colorizer').setup {}
 
             vim.keymap.set('n', '<leader>ct', vim.cmd.ColorizerToggle)
         end
     },
     {
         'mrshmllow/document-color.nvim',
-        config = function ()
-            require('document-color').setup{};
+        config = function()
+            require('document-color').setup {};
 
             vim.keymap.set('n', '<leader>dct', require('document-color').buf_toggle)
         end
     },
     {
         'numToStr/Comment.nvim',
-        config = true
+        dependencies={ 'JoosepAlviste/nvim-ts-context-commentstring' },
+        config = function()
+            require('Comment').setup {
+                pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+            }
+        end
     },
     {
         'lukas-reineke/indent-blankline.nvim',
