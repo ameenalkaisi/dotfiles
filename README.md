@@ -15,6 +15,10 @@ You can also use GNU stow for some configurations in Linux. Supported ones curre
 - vim
 - polybar
 - dwm
+- wezterm
+
+Note that for windows, you can still "stow" them as long as $XDG_CONFIG_HOME is set to ~/.config in
+the Environment variables. This is the way I'm doing it for WezTerm and Neovim now.
 
 ## for vim
 Create ~/.vim/colors directories, and get candycolor from google then put
