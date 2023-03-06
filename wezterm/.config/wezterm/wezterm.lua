@@ -56,10 +56,21 @@ end ]]
 ---------------------------------------------------------------
 --- Config
 ---------------------------------------------------------------
+local prog = {}
+if require("utils").get_os_name() == "Windows" then
+	prog = { "pwsh.exe", '-NoLogo' }
+else
+	prog = { "/usr/bin/bash" }
+end
+
+local font = require("utils").get_os_name() == "Windows" and wezterm.font("FiraCode NF") or
+wezterm.font("FiraCode Nerd Font")
+
+
 local config = {
 	-- font = wezterm.font("Cica"),
 	-- font_size = 10.0,
-	font = wezterm.font("FiraCode NF"),
+	font = font,
 	-- font_size = 8.5,
 	-- cell_width = 1.1,
 	-- line_height = 1.1,
@@ -132,7 +143,7 @@ local config = {
 	-- https://github.com/wez/wezterm/issues/2756
 	webgpu_preferred_adapter = gpus[1],
 	front_end = "WebGpu",
-	default_prog = { 'pwsh.exe', '-NoLogo' },
+	default_prog = prog,
 }
 
 return config
