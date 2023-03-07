@@ -65,7 +65,15 @@ return {
     {
         'norcalli/nvim-colorizer.lua',
         config = function()
-            require('colorizer').setup {}
+            require('colorizer').setup {
+                -- disable colorizer where document-color.nvim is applicable
+                '*',
+                -- An example
+                '!css',
+                '!html',
+                '!tsx',
+                '!dart',
+            }
 
             vim.keymap.set('n', '<leader>ct', vim.cmd.ColorizerToggle)
         end
@@ -80,7 +88,7 @@ return {
     },
     {
         'numToStr/Comment.nvim',
-        dependencies={ 'JoosepAlviste/nvim-ts-context-commentstring' },
+        dependencies = { 'JoosepAlviste/nvim-ts-context-commentstring' },
         config = function()
             require('Comment').setup {
                 pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),

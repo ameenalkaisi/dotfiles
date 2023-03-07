@@ -30,4 +30,9 @@ function M.on_attach(_, bufnr)
     --vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, bufopts)
 end
 
+M.capabilities = vim.lsp.protocol.make_client_capabilities()
+M.capabilities.textDocument.colorProvider = {
+    dynamicRegistration = true
+}
+
 return M
