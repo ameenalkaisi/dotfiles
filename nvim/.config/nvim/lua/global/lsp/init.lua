@@ -23,16 +23,11 @@ function M.on_attach(_, bufnr)
             --         -- disable tsserver formatting as it is very different from
             --         -- prettier, and not good at all
             --         -- at least by default
-            filter = function(client) return client.name ~= "tsserver" end,
+            filter = function(client) return client.name ~= "tsserver" and client.name ~= "jdtls" end,
             async = true,
         }
     end, bufopts)
     --vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, bufopts)
 end
-
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
-M.capabilities.textDocument.colorProvider = {
-    dynamicRegistration = true
-}
 
 return M
