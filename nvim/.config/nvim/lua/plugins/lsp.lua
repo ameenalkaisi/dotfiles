@@ -24,6 +24,7 @@ return {
 
         'simrat39/rust-tools.nvim',
         'folke/neodev.nvim',
+        'someone-stole-my-name/yaml-companion.nvim'
     },
     config = function()
         require("neodev").setup({
@@ -81,7 +82,10 @@ return {
         })
 
         local custom_on_attach = require("global.lsp").on_attach
-        local custom_capabilities = require("global.lsp").capabilities
+        local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
+        custom_capabilities.textDocument.colorProvider = {
+            dynamicRegistration = true
+        }
 
         local lspconfig = require("lspconfig")
         require("mason-lspconfig").setup_handlers {
@@ -112,41 +116,12 @@ return {
                 }
             end,
             ["yamlls"] = function()
-                lspconfig.yamlls.setup({
+                local cfg = require("yaml-companion").setup {
                     on_attach = custom_on_attach,
                     capabilities = custom_capabilities,
-                    settings = {
-                        yaml = {
-                            schemaStore = {
-                                enable = true,
-                                url = "https://www.schemastore.org/api/json/catalog.json",
-                            },
-                            schemas = {
-                                kubernetes = "*.yaml",
-                                ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*",
-                                ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
-                                ["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = "azure-pipelines.yml",
-                                ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
-                                ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
-                                ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
-                                ["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
-                                ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
-                                ["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
-                                ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "*gitlab-ci*.{yml,yaml}",
-                                ["https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json"] = "*api*.{yml,yaml}",
-                                ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "*docker-compose*.{yml,yaml}",
-                                ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = "*flow*.{yml,yaml}",
-                            },
-                            format = { enabled = false },
-                            -- enabling this conflicts between Kubernetes resources and kustomization.yaml and Helmreleases
-                            -- see utils.custom_lsp_attach() for the workaround
-                            -- how can I detect Kubernetes ONLY yaml files? (no CRDs, Helmreleases, etc.)
-                            validate = false,
-                            completion = true,
-                            hover = true,
-                        }
-                    }
-                })
+                }
+
+                lspconfig.yamlls.setup(cfg)
             end
         }
 
@@ -176,12 +151,12 @@ return {
                 documentation = cmp.config.window.bordered(),
             },
             mapping = cmp.mapping.preset.insert({
-                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-Space>"] = cmp.mapping.complete({}),
-                    ["<C-e>"] = cmp.mapping.abort(),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                    ["<Tab>"] = cmp.mapping(function(fallback)
+                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                ["<C-Space>"] = cmp.mapping.complete({}),
+                ["<C-e>"] = cmp.mapping.abort(),
+                ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                ["<Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
                     elseif luasnip.expand_or_jumpable() then
@@ -192,7 +167,7 @@ return {
                         fallback()
                     end
                 end, { "i", "s" }),
-                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                ["<S-Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_prev_item()
                     elseif luasnip.jumpable(-1) then
@@ -257,7 +232,6 @@ return {
 
         -- If you want insert `(` after select function or method item
         local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-        local cmp = require('cmp')
         cmp.event:on(
             'confirm_done',
             cmp_autopairs.on_confirm_done()
