@@ -21,7 +21,8 @@ return {
             -- vim.cmd('colorscheme gruvbox')
             -- vim.cmd('colorscheme kanagawa')
             -- vim.cmd('colorscheme catppuccin')
-            vim.cmd('colorscheme carbonfox')
+            -- vim.cmd('colorscheme carbonfox')
+            vim.cmd('colorscheme duskfox')
         end
     },
     {
