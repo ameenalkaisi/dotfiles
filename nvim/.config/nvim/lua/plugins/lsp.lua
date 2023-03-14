@@ -1,7 +1,9 @@
 return {
     'williamboman/mason.nvim',
     dependencies = {
-        'nvim-dap-ui',
+        'rcarriga/nvim-dap-ui',
+        'mfussenegger/nvim-dap',
+
         'williamboman/mason-lspconfig.nvim',
         'neovim/nvim-lspconfig',
         'onsails/lspkind.nvim',
@@ -101,13 +103,23 @@ return {
             ["jdtls"] = function() -- handled under ftplugin
             end,
             ["rust_analyzer"] = function()
-                local extension_path = vim.fn.stdpath("data") .. "/codelldb/extension/"
-                local codelldb_path = extension_path .. 'adapter/codelldb'
-                local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
+                local extension_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension"
+                local codelldb_path = extension_path .. "/adapter/codelldb"
+                local liblldb_path = extension_path .. '/lldb/lib/liblldb'
+
+                -- On windows, the names from mason are a bit different
+                if require("global.system").cursys == 'Windows' then
+                    liblldb_path = liblldb_path .. '.lib'
+                elseif require("global.system").cursys == 'Mac' then
+                    liblldb_path = liblldb_path .. '.dylib'
+                else
+                    liblldb_path = liblldb_path .. '.so'
+                end
 
                 require("rust-tools").setup {
                     server = {
                         on_attach = custom_on_attach,
+                        capabilities = custom_capabilities,
                     },
                     dap = {
                         adapter = require('rust-tools.dap').get_codelldb_adapter(
