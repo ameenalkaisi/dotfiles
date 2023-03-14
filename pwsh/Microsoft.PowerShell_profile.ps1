@@ -637,3 +637,5 @@ Outputs the pane-id for the newly created pane on success')
     $completions.Where{ $_.CompletionText -like "$wordToComplete*" } |
         Sort-Object -Property ListItemText
 }
+
+Import-Module 'C:\tools\vcpkg\scripts\posh-vcpkg'
