@@ -15,6 +15,10 @@ return {
             dapui.close()
         end
 
+        vim.keymap.set('n', '<F4>', function()
+            require("dap").close();
+            require('dapui').close();
+        end)
         vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
         vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
         vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
@@ -72,7 +76,6 @@ return {
                 -- CHANGE THIS to your path!
                 command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb",
                 args = { "--port", "${port}" },
-
                 -- On windows it will become false, other systems it is true
                 detached = require("global.system").cursys ~= "Windows",
             }
