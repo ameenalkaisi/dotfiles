@@ -1,6 +1,6 @@
 local M = {}
 
-function M.on_attach(_, bufnr)
+function M.on_attach(attached_client, bufnr)
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -28,6 +28,12 @@ function M.on_attach(_, bufnr)
         }
     end, bufopts)
     --vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, bufopts)
+
+
+    --- Attach document-color.nvim
+    if attached_client.server_capabilities.colorProvider then
+        require("document-color").buf_attach(bufnr)
+    end
 end
 
 return M

@@ -119,7 +119,6 @@ return {
                 require("rust-tools").setup {
                     server = {
                         on_attach = custom_on_attach,
-                        capabilities = custom_capabilities,
                     },
                     dap = {
                         adapter = require('rust-tools.dap').get_codelldb_adapter(
