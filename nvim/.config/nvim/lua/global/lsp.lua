@@ -31,9 +31,9 @@ function M.on_attach(attached_client, bufnr)
 
 
     --- Attach document-color.nvim
-    if attached_client.server_capabilities.colorProvider then
-        require("document-color").buf_attach(bufnr)
-    end
+  if attached_client and attached_client.server_capabilities.colorProvider then
+    require("document-color").buf_attach(bufnr)
+  end
 end
 
 return M

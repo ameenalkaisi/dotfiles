@@ -114,5 +114,12 @@ return {
             require('netman')
         end
     },
-    { "ellisonleao/glow.nvim", config = true, cmd = "Glow" }
+    { "ellisonleao/glow.nvim", config = true, cmd = "Glow" },
+    {
+        "danymat/neogen",
+        dependencies = { 'nvim-treesitter' },
+        config = function()
+            require("neogen").setup {}
+        end,
+    }
 }
