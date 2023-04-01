@@ -34,6 +34,9 @@ nvim. In Linux, place it into `~/.config/nvim`, and do the same.
 If you get something is not found error, it's probably an LSP server,
 DAP, or formatter missing, all of them you can install through mason.
 
+## tmux
+Need to clone .tmux's github into ~/opt
+
 ## for bash
 Preferrably copy the files into home, then modify them as needed. This is
 because they usually vary alot depending on OS and person so I think
