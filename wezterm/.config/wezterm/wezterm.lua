@@ -57,14 +57,17 @@ end ]]
 --- Config
 ---------------------------------------------------------------
 local prog = {}
-if require("utils").get_os_name() == "Windows" then
+local cursys = require("utils").get_os_name()
+if cursys then
 	prog = { "pwsh.exe", '-NoLogo' }
+elseif cursys == "Mac" then
+	prog = { "/bin/bash" }
 else
 	prog = { "/usr/bin/bash" }
 end
 
 local font = require("utils").get_os_name() == "Windows" and wezterm.font("FiraCode NF") or
-wezterm.font("FiraCode Nerd Font")
+	wezterm.font("FiraCode Nerd Font")
 
 
 local config = {

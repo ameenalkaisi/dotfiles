@@ -8,3 +8,5 @@ vim/.vim/.netrwhist
 lazy-lock.json
 .luarc.json
 tmux/.config/tmux/plugins
+nvim/.config/nvim/spell
+.DS_STORE
