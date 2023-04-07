@@ -6,5 +6,5 @@ return {
 			-- for windows, make sure sumatrapdf is installed and is in path
 			vim.g.vimtex_view_method = "zathura"
 		end
-	end
+	end,
 }

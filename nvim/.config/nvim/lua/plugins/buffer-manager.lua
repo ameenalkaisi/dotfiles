@@ -1,6 +1,6 @@
 return {
-	'j-morano/buffer_manager.nvim',
-	dependencies = { 'nvim-lua/plenary.nvim' },
+	"j-morano/buffer_manager.nvim",
+	dependencies = { "nvim-lua/plenary.nvim" },
 	config = function()
 		require("buffer_manager").setup({
 			line_keys = "",
@@ -12,16 +12,13 @@ return {
 		]])
 
 		for i = 1, 20 do
-			vim.keymap.set(
-				'n',
-				string.format('<leader>%s', i),
-				function() require("buffer_manager.ui").nav_file(i) end,
-				{}
-			)
+			vim.keymap.set("n", string.format("<leader>%s", i), function()
+				require("buffer_manager.ui").nav_file(i)
+			end, {})
 		end
 
-		vim.keymap.set('n', '[ ', require("buffer_manager.ui").nav_prev)
-		vim.keymap.set('n', '] ', require("buffer_manager.ui").nav_next)
-		vim.keymap.set('n', '<leader> ', require("buffer_manager.ui").toggle_quick_menu)
-	end
+		vim.keymap.set("n", "[ ", require("buffer_manager.ui").nav_prev)
+		vim.keymap.set("n", "] ", require("buffer_manager.ui").nav_next)
+		vim.keymap.set("n", "<leader> ", require("buffer_manager.ui").toggle_quick_menu)
+	end,
 }

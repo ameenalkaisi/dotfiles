@@ -1,43 +1,41 @@
 return {
-    'williamboman/mason.nvim',
+    "williamboman/mason.nvim",
     dependencies = {
-        'rcarriga/nvim-dap-ui',
-        'mfussenegger/nvim-dap',
+        "rcarriga/nvim-dap-ui",
+        "mfussenegger/nvim-dap",
 
-        'williamboman/mason-lspconfig.nvim',
-        'neovim/nvim-lspconfig',
-        'onsails/lspkind.nvim',
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+        "onsails/lspkind.nvim",
 
-        'jose-elias-alvarez/null-ls.nvim',
-        'jay-babu/mason-null-ls.nvim',
+        "jose-elias-alvarez/null-ls.nvim",
+        "jay-babu/mason-null-ls.nvim",
 
-        'hrsh7th/nvim-cmp',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lua',
-        'hrsh7th/cmp-cmdline',
-        'saadparwaiz1/cmp_luasnip',
+        "hrsh7th/nvim-cmp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-cmdline",
+        "saadparwaiz1/cmp_luasnip",
 
-        'windwp/nvim-autopairs',
+        "windwp/nvim-autopairs",
 
-        'L3MON4D3/LuaSnip',
-        'rafamadriz/friendly-snippets',
+        "L3MON4D3/LuaSnip",
+        "rafamadriz/friendly-snippets",
 
-        'simrat39/rust-tools.nvim',
-        'folke/neodev.nvim',
-        'someone-stole-my-name/yaml-companion.nvim'
+        "simrat39/rust-tools.nvim",
+        "folke/neodev.nvim",
+        "someone-stole-my-name/yaml-companion.nvim",
     },
     config = function()
         require("neodev").setup({
-            library = { plugins = { "nvim-dap-ui" }, types = true }
+            library = { plugins = { "nvim-dap-ui" }, types = true },
         })
         require("mason").setup()
         local mason_null_ls = require("mason-null-ls")
         mason_null_ls.setup({
-            ensure_installed = {
-
-            },
+            ensure_installed = {},
             automatic_installation = false,
             automatic_setup = true,
         })
@@ -60,81 +58,79 @@ return {
 
         -- Stop LSPs on neovim exit
         -- todo, test on tmux session switching
-        local stop_lsps = vim.api.nvim_create_augroup('StopLSPs', {})
+        local stop_lsps = vim.api.nvim_create_augroup("StopLSPs", {})
         vim.api.nvim_create_autocmd({ "VimLeavePre" }, {
             group = stop_lsps,
             pattern = "*",
             command = "LspStop",
         })
 
-        vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-            vim.lsp.handlers.signature_help,
-            { border = 'rounded' }
-        )
+        vim.lsp.handlers["textDocument/signatureHelp"] =
+            vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
         vim.diagnostic.config({
             virtual_text = false,
             severity_sort = true,
             float = {
-                border = 'rounded',
-                source = 'always',
-                header = '',
-                prefix = '',
-            }
+                border = "rounded",
+                source = "always",
+                header = "",
+                prefix = "",
+            },
         })
 
         local custom_on_attach = require("global.lsp").on_attach
         local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
         custom_capabilities.textDocument.colorProvider = {
-            dynamicRegistration = true
+            dynamicRegistration = true,
         }
 
         local lspconfig = require("lspconfig")
-        require("mason-lspconfig").setup_handlers {
+        require("mason-lspconfig").setup_handlers({
             -- The first entry (without a key) will be the default handler
             -- and will be called for each installed server that doesn't have
             -- a dedicated handler.
             function(server_name) -- default handler (optional)
-                lspconfig[server_name].setup {
+                lspconfig[server_name].setup({
                     on_attach = custom_on_attach,
-                    capabilities = custom_capabilities
-                }
+                    capabilities = custom_capabilities,
+                })
             end,
             ["jdtls"] = function() -- handled under ftplugin
             end,
             ["rust_analyzer"] = function()
                 local extension_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension"
                 local codelldb_path = extension_path .. "/adapter/codelldb"
-                local liblldb_path = extension_path .. '/lldb/lib/liblldb'
+                local liblldb_path = extension_path .. "/lldb/lib/liblldb"
 
                 -- On windows, the names from mason are a bit different
-                if require("global.system").cursys == 'Windows' then
-                    liblldb_path = liblldb_path .. '.lib'
-                elseif require("global.system").cursys == 'Mac' then
-                    liblldb_path = liblldb_path .. '.dylib'
+                if require("global.system").cursys == "Windows" then
+                    liblldb_path = liblldb_path .. ".lib"
+                elseif require("global.system").cursys == "Mac" then
+                    liblldb_path = liblldb_path .. ".dylib"
                 else
-                    liblldb_path = liblldb_path .. '.so'
+                    liblldb_path = liblldb_path .. ".so"
                 end
 
-                require("rust-tools").setup {
+                require("rust-tools").setup({
                     server = {
                         on_attach = custom_on_attach,
+                        capabilities = custom_capabilities,
                     },
                     dap = {
-                        adapter = require('rust-tools.dap').get_codelldb_adapter(
-                            codelldb_path, liblldb_path)
-                    }
-                }
+                        adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
+                    },
+                })
             end,
             ["yamlls"] = function()
-                local cfg = require("yaml-companion").setup {
+                local cfg = require("yaml-companion").setup({
                     on_attach = custom_on_attach,
                     capabilities = custom_capabilities,
-                }
+                })
 
                 lspconfig.yamlls.setup(cfg)
-            end
-        }
+            end,
+        })
 
         local has_words_before = function()
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -191,7 +187,7 @@ return {
             sources = cmp.config.sources({
                 { name = "nvim_lsp" },
                 --- { name = 'vsnip' }, -- For vsnip users.
-                { name = 'luasnip' }, -- For luasnip users.
+                { name = "luasnip" }, -- For luasnip users.
                 --{ name = "ultisnips" }, -- For ultisnips users.
                 -- { name = 'snippy' }, -- For snippy users.
                 { name = "orgmode" },
@@ -199,9 +195,9 @@ return {
                 { name = "buffer" },
             }),
             formatting = {
-                format = require('lspkind').cmp_format({
-                    mode = "symbol",       -- show only symbol annotations
-                    maxwidth = 50,         -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+                format = require("lspkind").cmp_format({
+                    mode = "symbol", -- show only symbol annotations
+                    maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
                     ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
                     -- The function below will be called before any actual modifications from lspkind
                     -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
@@ -239,13 +235,10 @@ return {
             }),
         })
 
-        require('nvim-autopairs').setup {}
+        require("nvim-autopairs").setup({})
 
         -- If you want insert `(` after select function or method item
-        local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-        cmp.event:on(
-            'confirm_done',
-            cmp_autopairs.on_confirm_done()
-        )
-    end
+        local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+        cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+    end,
 }

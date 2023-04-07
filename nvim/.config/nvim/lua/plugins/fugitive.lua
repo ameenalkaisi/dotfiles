@@ -1,5 +1,5 @@
 return {
-    'tpope/vim-fugitive',
+    "tpope/vim-fugitive",
     config = function()
         vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
@@ -30,5 +30,5 @@ return {
         --         vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts);
         --     end,
         -- })
-    end
+    end,
 }

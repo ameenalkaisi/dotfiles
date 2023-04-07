@@ -10,8 +10,7 @@ return {
         "lewis6991/gitsigns.nvim",
     },
     config = function()
-        require("lspsaga").setup({
-        })
+        require("lspsaga").setup({})
 
         -- LSP finder - Find the symbol's definition
         -- If there is no definition, it will instead be hidden
@@ -45,7 +44,6 @@ return {
         vim.keymap.set("n", "gd", function()
             vim.cmd("Lspsaga goto_definition")
         end)
-
 
         -- Go to type definition
         vim.keymap.set("n", "gt", function()
@@ -117,5 +115,5 @@ return {
 
         -- Floating terminal
         --vim.keymap.set({ "n", "t" }, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
-    end
+    end,
 }

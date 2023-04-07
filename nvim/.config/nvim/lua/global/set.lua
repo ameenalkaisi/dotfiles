@@ -4,8 +4,8 @@
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 9
 
 vim.opt.guicursor = "n-c-v:block-nC"
@@ -24,9 +24,9 @@ vim.opt.wrap = false
 
 local sys = require("global.system").cursys
 if sys == "Mac" or sys == "Linux" then
-	vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 elseif sys == "Windows" then
-	vim.opt.undodir = "C:/Users/ameen/.vim/undodir"
+    vim.opt.undodir = "C:/Users/ameen/.vim/undodir"
 end
 
 vim.opt.undofile = true
@@ -44,20 +44,20 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "0"
 
 vim.opt.conceallevel = 2
-vim.opt.concealcursor = 'nc'
+vim.opt.concealcursor = "nc"
 
 local augroup = vim.api.nvim_create_augroup
-local fix_spaces_group = augroup('FixSpaces', {})
+local fix_spaces_group = augroup("FixSpaces", {})
 
 local autocmd = vim.api.nvim_create_autocmd
-local yank_group = augroup('HighlightYank', {})
+local yank_group = augroup("HighlightYank", {})
 
-autocmd('TextYankPost', {
+autocmd("TextYankPost", {
     group = yank_group,
-    pattern = '*',
+    pattern = "*",
     callback = function()
         vim.highlight.on_yank({
-            higroup = 'IncSearch',
+            higroup = "IncSearch",
             timeout = 40,
         })
     end,

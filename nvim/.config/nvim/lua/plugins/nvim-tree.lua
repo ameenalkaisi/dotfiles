@@ -1,5 +1,5 @@
 return {
-    'nvim-tree/nvim-tree.lua',
+    "nvim-tree/nvim-tree.lua",
     config = function()
         require("nvim-tree").setup({
             update_focused_file = {
@@ -21,10 +21,10 @@ return {
 
                 -- open the tree
                 require("nvim-tree.api").tree.open()
-            end
+            end,
         })
 
         vim.keymap.set("n", "<leader>nt", vim.cmd.NvimTreeToggle)
         vim.keymap.set("n", "<leader>nf", vim.cmd.NvimTreeFindFile)
-    end
+    end,
 }

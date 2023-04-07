@@ -1,5 +1,5 @@
 return {
-    'lewis6991/gitsigns.nvim',
+    "lewis6991/gitsigns.nvim",
     config = true,
     opts = {
         on_attach = function(bufnr)
@@ -56,5 +56,5 @@ return {
             -- Text object
             map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
         end,
-    }
+    },
 }

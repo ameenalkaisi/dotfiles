@@ -1,6 +1,6 @@
 return {
-    'folke/trouble.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
+    "folke/trouble.nvim",
+    dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
         local opts = { silent = true, noremap = true }
         -- Lua
@@ -25,5 +25,5 @@ return {
         vim.keymap.set("n", "gR", function()
             vim.cmd("TroubleToggle lsp_references")
         end, opts)
-    end
+    end,
 }
