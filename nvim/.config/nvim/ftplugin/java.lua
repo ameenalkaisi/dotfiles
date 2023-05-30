@@ -16,11 +16,16 @@ local cur_config = ""
 local sys = require("global.system").cursys
 if sys == "Mac" or sys == "Linux" then
     workspace_dir = os.getenv("HOME") .. "/.jdtls/" .. project_name
-    cur_config = "linux"
 elseif sys == "Windows" then
     require("nvim-treesitter.install").compilers = { "clang" }
     workspace_dir = os.getenv("UserProfile") .. "/.jdtls/" .. project_name
     cur_config = "win"
+end
+
+if sys == "Linux" then
+    cur_config = "linux"
+elseif sys == "Mac" then
+    cur_config = "mac"
 end
 
 local bundles = {
