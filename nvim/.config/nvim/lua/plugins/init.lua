@@ -101,7 +101,9 @@ return {
     },
     {
         "lukas-reineke/indent-blankline.nvim",
-        config = true,
+        config = function()
+            require("ibl").setup()
+        end,
     },
     {
         "theHamsta/nvim-dap-virtual-text",
