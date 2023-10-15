@@ -6,6 +6,8 @@ return {
 		"nvim-telescope/telescope.nvim",
 	},
 	config = function()
-		require("telescope").load_extension("yaml_schema")
+		local telescope = require("telescope")
+		telescope.load_extension("yaml_schema")
+		vim.keymap.set("n", "<leader>py", telescope.extensions.yaml_schema.yaml_schema)
 	end,
 }
