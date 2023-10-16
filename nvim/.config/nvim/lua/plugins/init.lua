@@ -2,7 +2,6 @@ return {
     "mfussenegger/nvim-jdtls",
     "JoosepAlviste/nvim-ts-context-commentstring",
     "tpope/vim-repeat",
-    "mechatroner/rainbow_csv",
     {
         "rose-pine/neovim",
         name = "rose-pine",
