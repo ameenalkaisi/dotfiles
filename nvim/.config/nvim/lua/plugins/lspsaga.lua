@@ -17,7 +17,7 @@ return {
         -- When you use an action in finder like "open vsplit",
         -- you can use <C-t> to jump back
         vim.keymap.set("n", "gh", function()
-            vim.cmd("Lspsaga lsp_finder")
+            vim.cmd("Lspsaga finder")
         end)
 
         -- Code action
