@@ -2,6 +2,7 @@ return {
     "mfussenegger/nvim-jdtls",
     "JoosepAlviste/nvim-ts-context-commentstring",
     "tpope/vim-repeat",
+    "andreshazard/vim-freemarker",
     {
         "rose-pine/neovim",
         name = "rose-pine",
