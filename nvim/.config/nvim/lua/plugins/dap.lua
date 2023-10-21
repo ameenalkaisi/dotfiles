@@ -88,18 +88,36 @@ return {
         dap.configurations.c = dap.configurations.cpp
         dap.configurations.rust = dap.configurations.cpp
 
+        -- go
+        dap.configurations.go = {
+            {
+                type = 'go',
+                name = 'Debug',
+                request = 'launch',
+                showLog = false,
+                program = "${file}",
+                dlvToolPath = vim.fn.stdpath("data") .. "/mason/packages/delve/dlv"
+            },
+        }
+
         -- adapters
         -- c, cpp, rust
         dap.adapters.codelldb = {
             type = "server",
             port = "${port}",
             executable = {
-                -- CHANGE THIS to your path!
                 command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb",
                 args = { "--port", "${port}" },
                 -- On windows it will become false, other systems it is true
                 detached = require("global.system").cursys ~= "Windows",
             },
+        }
+
+        -- go
+        dap.adapters.go = {
+            type = 'executable',
+            command = 'node',
+            args = { vim.fn.stdpath("data") .. "/mason/packages/go-debug-adapter/extension/dist/debugAdapter.js" },
         }
     end,
 }
