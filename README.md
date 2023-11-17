@@ -34,6 +34,13 @@ nvim. In Linux, place it into `~/.config/nvim`, and do the same.
 If you get something is not found error, it's probably an LSP server,
 DAP, or formatter missing, all of them you can install through mason.
 
+### notes on jdtls (java lsp)
+At least in Windows, major issue is running wrong version of the java runtime.
+The one that consistently works is Oracle JDK.
+Microsoft and Eclipse have their own versions and usually they add it
+to the top of the classpath. So need to double check and make sure
+that Oracle version is the top one.
+
 ## tmux
 Need to clone .tmux's github into ~/opt
 
