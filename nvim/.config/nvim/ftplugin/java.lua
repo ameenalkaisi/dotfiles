@@ -19,13 +19,14 @@ if sys == "Mac" or sys == "Linux" then
 elseif sys == "Windows" then
     require("nvim-treesitter.install").compilers = { "clang" }
     workspace_dir = os.getenv("UserProfile") .. "/.jdtls/" .. project_name
-    cur_config = "win"
 end
 
 if sys == "Linux" then
     cur_config = "linux"
 elseif sys == "Mac" then
     cur_config = "mac"
+elseif sys == "Windows" then
+    cur_config = "win"
 end
 
 local bundles = {
