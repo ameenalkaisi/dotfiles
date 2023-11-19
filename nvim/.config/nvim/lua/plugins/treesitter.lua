@@ -35,11 +35,11 @@ return {
                 enable = true,
             },
             indent = { enable = true },
-            context_commentstring = {
-                enable = true,
-                enable_autocmd = false,
-            },
         })
+
+        require("ts_context_commentstring").setup {
+            enable_autocmd = false;
+        }
 
         if require("global.system").cursys == "Windows" then
             require("nvim-treesitter.install").compilers = { "clang" }
