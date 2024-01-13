@@ -8,9 +8,6 @@ return {
         "neovim/nvim-lspconfig",
         "onsails/lspkind.nvim",
 
-        "jose-elias-alvarez/null-ls.nvim",
-        "jay-babu/mason-null-ls.nvim",
-
         "hrsh7th/nvim-cmp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -33,25 +30,6 @@ return {
             library = { plugins = { "nvim-dap-ui" }, types = true },
         })
         require("mason").setup()
-        require("null-ls").setup()
-        require("mason-null-ls").setup({
-            ensure_installed = {},
-            automatic_installation = false,
-            automatic_setup = true,
-            handlers = {
-                function(source_name, methods)
-                    -- all sources with no handler get passed here
-
-                    -- To keep the original functionality of `automatic_setup = true`,
-                    -- please add the below.
-                    require("mason-null-ls.automatic_setup")(source_name, methods)
-                end,
-                -- example specific config
-                -- stylua = function(source_name, methods)
-                --     null_ls.register(null_ls.builtins.formatting.stylua)
-                -- end,
-            }
-        })
 
         require("mason-lspconfig").setup()
 

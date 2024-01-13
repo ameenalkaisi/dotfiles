@@ -18,7 +18,7 @@ function M.on_attach(attached_client, bufnr)
     -- vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     -- vim.keymap.set('n', '<leader>rr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set("n", "<leader>f", function()
+    --[[ vim.keymap.set("n", "<leader>f", function()
         vim.lsp.buf.format({
             --         -- disable tsserver formatting as it is very different from
             --         -- prettier, and not good at all
@@ -28,7 +28,7 @@ function M.on_attach(attached_client, bufnr)
             end,
             async = true,
         })
-    end, bufopts)
+    end, bufopts) ]]
     --vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, bufopts)
 
     --- Attach document-color.nvim
