@@ -1,4 +1,5 @@
 return {
+    "tpope/vim-sleuth",
     "mfussenegger/nvim-jdtls",
     "JoosepAlviste/nvim-ts-context-commentstring",
     "tpope/vim-repeat",
