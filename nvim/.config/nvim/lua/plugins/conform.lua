@@ -20,7 +20,10 @@ return {
 			python = { "isort", "black" },
 
 			-- sublist if you want only one to work
-			javascript = { { "prettierd", "prettier" } },
+			javascript = { { "eslint_d", "prettierd", "prettier" } },
+			javascriptreact = { { "eslint_d", "prettierd", "prettier" } },
+			typescript = { { "eslint_d", "prettierd", "prettier" } },
+			typescriptreact = { { "eslint_d", "prettierd", "prettier" } },
 			go = { "gofumpt" },
 		},
 		-- Customize formatters
