@@ -4,6 +4,7 @@ return {
     "JoosepAlviste/nvim-ts-context-commentstring",
     "tpope/vim-repeat",
     "andreshazard/vim-freemarker",
+    "folke/twilight.nvim",
     {
         "rose-pine/neovim",
         name = "rose-pine",
