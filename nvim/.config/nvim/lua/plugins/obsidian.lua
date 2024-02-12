@@ -22,13 +22,13 @@ return {
 	opts = {
 		workspaces = {
 			{
-				name = "personal",
-				path = "~/vaults/personal",
+				name = "work",
+				path = "~/OneDrive/vaults/work",
 			},
 			{
-				name = "work",
-				path = "~/vaults/work",
-			},
+				name = "personal",
+				path = "~/OneDrive/vaults/personal",
+			}
 		},
 
 		-- see below for full list of options 👇

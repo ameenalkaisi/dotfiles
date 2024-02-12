@@ -33,6 +33,8 @@ return {
 			scss = { { "prettierd", "prettier" } },
 			graphql = { { "prettierd", "prettier" } },
 
+			sql = { { "sql-formatter" } },
+
 			go = { "gofumpt" },
 		},
 		-- Customize formatters
