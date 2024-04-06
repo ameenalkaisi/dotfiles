@@ -5,7 +5,7 @@ return {
     config = function()
         require("nvim-treesitter.configs").setup({
             -- A list of parser names, or "all"
-            ensure_installed = { "help", "javascript", "typescript", "c", "lua", "rust", "vim" },
+            ensure_installed = {"javascript", "typescript", "c", "lua", "rust", "vim" },
             -- Install parsers synchronously (only applied to `ensure_installed`)
             sync_install = false,
             -- Automatically install missing parsers when entering buffer
@@ -40,9 +40,5 @@ return {
         require("ts_context_commentstring").setup {
             enable_autocmd = false;
         }
-
-        if require("global.system").cursys == "Windows" then
-            require("nvim-treesitter.install").compilers = { "clang" }
-        end
     end,
 }

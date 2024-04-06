@@ -3,6 +3,7 @@ return {
     dependencies = {
         "rcarriga/nvim-dap-ui",
         "mfussenegger/nvim-dap",
+        "nvim-neotest/nvim-nio",
 
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
@@ -167,7 +168,6 @@ return {
                 { name = "luasnip" }, -- For luasnip users.
                 --{ name = "ultisnips" }, -- For ultisnips users.
                 -- { name = 'snippy' }, -- For snippy users.
-                { name = "orgmode" },
             }, {
                 { name = "buffer" },
             }),
