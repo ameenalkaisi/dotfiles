@@ -10,16 +10,10 @@ local equinox_launcher_jars =
 local cur_equinox_launcher = equinox_launcher_jars[1]
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 
-local workspace_dir = ""
+local workspace_dir = require("global.system").home_path .. "/.jdtls/" .. project_name
 local cur_config = ""
 
 local sys = require("global.system").cursys
-if sys == "Mac" or sys == "Linux" then
-    workspace_dir = os.getenv("HOME") .. "/.jdtls/" .. project_name
-elseif sys == "Windows" then
-    require("nvim-treesitter.install").compilers = { "clang" }
-    workspace_dir = os.getenv("UserProfile") .. "/.jdtls/" .. project_name
-end
 
 if sys == "Linux" then
     cur_config = "linux"

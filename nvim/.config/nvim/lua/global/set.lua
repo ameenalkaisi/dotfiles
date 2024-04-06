@@ -22,12 +22,8 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
-local sys = require("global.system").cursys
-if sys == "Mac" or sys == "Linux" then
-    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
-elseif sys == "Windows" then
-    vim.opt.undodir = "C:/Users/ameen/.vim/undodir"
-end
+
+vim.opt.undodir = require("global.system").home_path .. "/.vim/undodir"
 
 vim.opt.undofile = true
 
