@@ -30,7 +30,8 @@ return {
 				path = "~/OneDrive/vaults/personal",
 			}
 		},
-
-		-- see below for full list of options 👇
+		daily_notes = {
+			folder = "Journal",
+		},
 	},
 }
