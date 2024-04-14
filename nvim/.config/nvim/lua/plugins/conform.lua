@@ -20,10 +20,15 @@ return {
 			python = { "isort", "black" },
 
 			-- sublist if you want only one to work
-			javascript = { { "prettierd", "prettier" } },
-			javascriptreact = { { "prettierd", "prettier" } },
-			typescript = { { "prettierd", "prettier" } },
-			typescriptreact = { { "prettierd", "prettier" } },
+			-- javascript = { { "prettierd", "prettier" } },
+			-- javascriptreact = { { "prettierd", "prettier" } },
+			-- typescript = { { "prettierd", "prettier" } },
+			-- typescriptreact = { { "prettierd", "prettier" } },
+			javascript = { { "eslint_d", "eslint" } },
+			javascriptreact = { { "eslint_d", "eslint" } },
+			typescript = { { "eslint_d", "eslint" } },
+			typescriptreact = { { "eslint_d", "eslint" } },
+
 
 			json = { { "prettierd", "prettier" } },
 			yaml = { { "prettierd", "prettier" } },
