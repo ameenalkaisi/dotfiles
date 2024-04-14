@@ -22,7 +22,6 @@ return {
         "L3MON4D3/LuaSnip",
         "rafamadriz/friendly-snippets",
 
-        "simrat39/rust-tools.nvim",
         "folke/neodev.nvim",
         "someone-stole-my-name/yaml-companion.nvim",
     },
@@ -75,30 +74,6 @@ return {
                 })
             end,
             ["jdtls"] = function() -- handled under ftplugin
-            end,
-            ["rust_analyzer"] = function()
-                local extension_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension"
-                local codelldb_path = extension_path .. "/adapter/codelldb"
-                local liblldb_path = extension_path .. "/lldb/lib/liblldb"
-
-                -- On windows, the names from mason are a bit different
-                if require("global.system").cursys == "Windows" then
-                    liblldb_path = liblldb_path .. ".lib"
-                elseif require("global.system").cursys == "Mac" then
-                    liblldb_path = liblldb_path .. ".dylib"
-                else
-                    liblldb_path = liblldb_path .. ".so"
-                end
-
-                require("rust-tools").setup({
-                    server = {
-                        on_attach = custom_on_attach,
-                        capabilities = custom_capabilities,
-                    },
-                    dap = {
-                        adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
-                    },
-                })
             end,
             ["yamlls"] = function()
                 local cfg = require("yaml-companion").setup({
