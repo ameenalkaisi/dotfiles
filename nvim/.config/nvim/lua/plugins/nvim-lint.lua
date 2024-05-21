@@ -8,7 +8,7 @@ return {
 			typescriptreact = { 'eslint_d' },
 		}
 
-		vim.api.nvim_create_autocmd({ "TextChanged" }, {
+		vim.api.nvim_create_autocmd({ "TextChanged", "BufWinEnter" }, {
 			callback = function()
 				require("lint").try_lint()
 			end,
