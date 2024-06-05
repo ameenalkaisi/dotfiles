@@ -6,29 +6,6 @@ return {
     "andreshazard/vim-freemarker",
     "folke/twilight.nvim",
     {
-        "rose-pine/neovim",
-        name = "rose-pine",
-        dependencies = {
-            "ellisonleao/gruvbox.nvim",
-            "EdenEast/nightfox.nvim",
-            "rebelot/kanagawa.nvim",
-            "catppuccin/nvim",
-        },
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require("rose-pine").setup()
-            -- set default colorscheme here
-            --
-            -- vim.cmd('colorscheme rose-pine')
-            -- vim.cmd('colorscheme gruvbox')
-            -- vim.cmd('colorscheme kanagawa')
-            -- vim.cmd('colorscheme catppuccin')
-            -- vim.cmd('colorscheme carbonfox')
-            vim.cmd("colorscheme duskfox")
-        end,
-    },
-    {
         "NMAC427/guess-indent.nvim",
         config = true,
     },
