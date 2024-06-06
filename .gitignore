@@ -10,5 +10,5 @@ lazy-lock.json
 tmux/.config/tmux/plugins
 tmux/.config/tmux/tmux.conf
 nvim/.config/nvim/spell
-nvim/.config/lua/settings/theme.lua
+nvim/.config/nvim/lua/settings/
 .DS_STORE
