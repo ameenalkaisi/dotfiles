@@ -4,7 +4,11 @@ M.touch_file = function(filename, content)
     -- Extract the directory path
     local path = string.match(filename, "(.*/)")
     if path then
-        os.execute('mkdir -p "' .. path .. '"')
+        if (require("global.system").cursys == "Windows") then
+            os.execute('mkdir "' .. path .. '"')
+        else
+            os.execute('mkdir -p "' .. path .. '"')
+        end
     end
 
     -- Attempt to open the file in read mode

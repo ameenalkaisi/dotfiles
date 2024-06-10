@@ -33,14 +33,6 @@ return {
     -- lsp, autocompletion, and snippets
     -- use('github/copilot.vim')
     {
-        "simrat39/symbols-outline.nvim",
-        config = function()
-            require("symbols-outline").setup()
-
-            vim.keymap.set("n", "<leader>so", vim.cmd.SymbolsOutline)
-        end,
-    },
-    {
         "akinsho/bufferline.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
         config = true,

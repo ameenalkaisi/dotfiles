@@ -22,13 +22,9 @@ return {
         "L3MON4D3/LuaSnip",
         "rafamadriz/friendly-snippets",
 
-        "folke/neodev.nvim",
         "someone-stole-my-name/yaml-companion.nvim",
     },
     config = function()
-        require("neodev").setup({
-            library = { plugins = { "nvim-dap-ui" }, types = true },
-        })
         require("mason").setup()
 
         require("mason-lspconfig").setup()
