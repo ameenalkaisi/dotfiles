@@ -31,7 +31,7 @@ return {
             { desc = "Open harpoon quick switcher" })
 
         for i = 1, 6, 1 do
-            vim.keymap.set("n", string.format("<leader>h%d", i), function() harpoon:list():select(1) end,
+            vim.keymap.set("n", string.format("<leader>h%d", i), function() harpoon:list():select(i) end,
             { desc = string.format("Select harpoon window %d", i) })
         end
     end,
