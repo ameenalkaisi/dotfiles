@@ -114,6 +114,6 @@ return {
         end, {desc="Lspsaga Outgoing Calls"})
 
         -- Floating terminal
-        --vim.keymap.set({ "n", "t" }, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
+        vim.keymap.set({ "n", "t" }, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
     end,
 }

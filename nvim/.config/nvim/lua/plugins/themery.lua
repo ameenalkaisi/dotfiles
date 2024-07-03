@@ -21,7 +21,7 @@ return {
 -- end themery block]])
 
 		require("themery").setup({
-			themes = { "gruvbox", "dayfox", "kanagawa", "catppuccin", "carbonfox", "duskfox", "rose-pine" },
+			themes = { "gruvbox", "dayfox", "kanagawa", "catppuccin", "carbonfox", "duskfox", "rose-pine", "slate" },
 			themeConfigFile = theme_config_file,
 		})
 	end,

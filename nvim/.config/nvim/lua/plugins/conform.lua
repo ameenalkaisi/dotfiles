@@ -41,6 +41,8 @@ return {
 			sql = { { "sql-formatter" } },
 
 			go = { "gofumpt" },
+
+			java = { "google-java-format" }
 		},
 		-- Customize formatters
 		formatters = {
