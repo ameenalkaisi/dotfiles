@@ -8,7 +8,7 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 9
 
-vim.opt.guicursor = "n-c-v:block-nC"
+-- vim.opt.guicursor = "n-c-v:block-Cursor"
 
 vim.opt.nu = true
 vim.opt.relativenumber = true

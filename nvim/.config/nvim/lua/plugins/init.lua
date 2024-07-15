@@ -3,6 +3,7 @@ return {
     "mfussenegger/nvim-jdtls",
     "JoosepAlviste/nvim-ts-context-commentstring",
     "tpope/vim-repeat",
+    "tpope/vim-scriptease",
     "andreshazard/vim-freemarker",
     "folke/twilight.nvim",
     {
