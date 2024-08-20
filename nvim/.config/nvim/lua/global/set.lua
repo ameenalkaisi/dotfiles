@@ -39,7 +39,7 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "0"
 
-vim.opt.conceallevel = 2
+vim.opt.conceallevel = 0
 vim.opt.concealcursor = "nc"
 
 local augroup = vim.api.nvim_create_augroup
