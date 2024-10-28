@@ -7,6 +7,10 @@ return {
         vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
         vim.keymap.set("n", "<leader>pgf", builtin.git_files, {})
         vim.keymap.set("n", "<leader>plg", builtin.live_grep, {})
+        vim.keymap.set("n", "<leader>pn", builtin.lsp_incoming_calls, {})
+        vim.keymap.set("n", "<leader>pr", builtin.lsp_references, {})
+        vim.keymap.set("n", "<leader>pd", builtin.lsp_definitions, {})
+        vim.keymap.set("n", "<leader>pi", builtin.lsp_implementations, {})
 
         local telescope = require("telescope")
         telescope.load_extension("live_grep_args")

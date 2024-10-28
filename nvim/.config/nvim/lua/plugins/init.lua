@@ -6,6 +6,7 @@ return {
     "tpope/vim-scriptease",
     "andreshazard/vim-freemarker",
     "folke/twilight.nvim",
+    "vim-scripts/edifact.vim",
     {
         "NMAC427/guess-indent.nvim",
         config = true,
