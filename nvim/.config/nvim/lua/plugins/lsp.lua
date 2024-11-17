@@ -25,10 +25,6 @@ return {
         "someone-stole-my-name/yaml-companion.nvim",
     },
     config = function()
-        require("mason").setup()
-
-        require("mason-lspconfig").setup()
-
         -- Stop LSPs on neovim exit
         -- todo, test on tmux session switching
         local stop_lsps = vim.api.nvim_create_augroup("StopLSPs", {})
@@ -59,26 +55,32 @@ return {
         }
 
         local lspconfig = require("lspconfig")
-        require("mason-lspconfig").setup_handlers({
-            -- The first entry (without a key) will be the default handler
-            -- and will be called for each installed server that doesn't have
-            -- a dedicated handler.
-            function(server_name) -- default handler (optional)
-                lspconfig[server_name].setup({
-                    on_attach = custom_on_attach,
-                    capabilities = custom_capabilities,
-                })
-            end,
-            ["jdtls"] = function() -- handled under ftplugin
-            end,
-            ["yamlls"] = function()
-                local cfg = require("yaml-companion").setup({
-                    on_attach = custom_on_attach,
-                    capabilities = custom_capabilities,
-                })
 
-                lspconfig.yamlls.setup(cfg)
-            end,
+        require("mason").setup()
+        require("mason-lspconfig").setup({
+            handlers = {
+                -- The first entry (without a key) will be the default handler
+                -- and will be called for each installed server that doesn't have
+                -- a dedicated handler.
+                function(server_name) -- default handler (optional)
+                    lspconfig[server_name].setup({
+                        on_attach = custom_on_attach,
+                        capabilities = custom_capabilities,
+                    })
+                end,
+                ["yamlls"] = function()
+                    local cfg = require("yaml-companion").setup({
+                        on_attach = custom_on_attach,
+                        capabilities = custom_capabilities,
+                    })
+
+                    lspconfig.yamlls.setup(cfg)
+                end,
+                ["jdtls"] = function()         -- handled under ftplugin
+                end,
+                ["rust_analyzer"] = function() -- handled by rustaceanvim
+                end,
+            }
         })
 
         local has_words_before = function()
