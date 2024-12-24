@@ -13,7 +13,7 @@ return {
 		-- setup telescope
 		local telescope = require("telescope")
 		telescope.load_extension("yaml_schema")
-		vim.keymap.set("n", "<leader>py", telescope.extensions.yaml_schema.yaml_schema)
+		vim.keymap.set("n", "<leader>py", telescope.extensions.yaml_schema.yaml_schema, {desc="Select yaml schema"})
 
 		-- setup lsp similar to lsp.lua
 		local lspconfig = require("lspconfig")

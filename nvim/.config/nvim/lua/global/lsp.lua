@@ -1,35 +1,38 @@
 local M = {}
 
+local set_vim_keymap_with_desc = function(mode, lhs, rhs, opts, desc)
+    local desc_option = { desc = desc }
+    vim.keymap.set(mode, lhs, rhs, vim.tbl_extend('error', opts, desc_option))
+end
+
 function M.on_attach(attached_client, bufnr)
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set("n", "<leader>wl", function()
+    set_vim_keymap_with_desc("n", "gD", vim.lsp.buf.declaration, bufopts, "Go to declaration")
+    -- set_vim_keymap_with_desc('n', 'K', vim.lsp.buf.hover, bufopts, "Show hover information")
+    set_vim_keymap_with_desc("n", "gi", vim.lsp.buf.implementation, bufopts, "Go to implementation")
+    set_vim_keymap_with_desc({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, bufopts, "Show signature help")
+    set_vim_keymap_with_desc("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts, "Add workspace folder")
+    set_vim_keymap_with_desc("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts, "Remove workspace folder")
+    set_vim_keymap_with_desc("n", "<leader>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, bufopts)
-    vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-    -- vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
-    -- vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    -- vim.keymap.set('n', '<leader>rr', vim.lsp.buf.references, bufopts)
-    --[[ vim.keymap.set("n", "<leader>f", function()
+    end, bufopts, "List workspace folders")
+    set_vim_keymap_with_desc("n", "<leader>D", vim.lsp.buf.type_definition, bufopts, "Go to type definition")
+    -- set_vim_keymap_with_desc('n', '<leader>rn', vim.lsp.buf.rename, bufopts, "Rename symbol")
+    -- set_vim_keymap_with_desc('n', '<leader>ca', vim.lsp.buf.code_action, bufopts, "Code action")
+    -- set_vim_keymap_with_desc('n', '<leader>rr', vim.lsp.buf.references, bufopts, "Find references")
+    --[[ set_vim_keymap_with_desc("n", "<leader>f", function()
         vim.lsp.buf.format({
-            --         -- disable tsserver formatting as it is very different from
-            --         -- prettier, and not good at all
-            --         -- at least by default
+            -- disable on tsserver and jdtls
             filter = function(client)
                 return client.name ~= "tsserver" and client.name ~= "jdtls"
             end,
             async = true,
         })
-    end, bufopts) ]]
-    --vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, bufopts)
+    end, bufopts, "Format document") ]]
+    -- set_vim_keymap_with_desc("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, bufopts, "Search workspace symbols")
 
     --- Attach document-color.nvim
     if attached_client and attached_client.server_capabilities.colorProvider then
