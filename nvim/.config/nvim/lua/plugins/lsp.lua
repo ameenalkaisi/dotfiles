@@ -1,6 +1,8 @@
 return {
     "williamboman/mason.nvim",
     dependencies = {
+        "folke/neoconf.nvim",
+        "folke/lazydev.nvim",
         "rcarriga/nvim-dap-ui",
         "mfussenegger/nvim-dap",
         "nvim-neotest/nvim-nio",
@@ -54,6 +56,8 @@ return {
             dynamicRegistration = true,
         }
 
+        require("neoconf").setup()
+
         local lspconfig = require("lspconfig")
 
         require("mason").setup()
@@ -90,6 +94,15 @@ return {
 
         -- load luasnip's
         require("luasnip.loaders.from_vscode").lazy_load()
+
+        -- load lazydev
+        require("lazydev").setup({
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        })
 
         -- set up cmp and luasnip
         local luasnip = require("luasnip")
@@ -139,6 +152,7 @@ return {
                 { name = "nvim_lsp" },
                 --- { name = 'vsnip' }, -- For vsnip users.
                 { name = "luasnip" }, -- For luasnip users.
+                { name = "lazydev", group_index = 0 },
                 --{ name = "ultisnips" }, -- For ultisnips users.
                 -- { name = 'snippy' }, -- For snippy users.
             }, {
