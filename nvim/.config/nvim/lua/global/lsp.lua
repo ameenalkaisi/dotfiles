@@ -37,4 +37,12 @@ function M.on_attach(attached_client, bufnr)
     end
 end
 
+-- @param nvim_lsp_cmp result of require('nvim_lsp_cmp')
+function M.create_capabilities(nvim_lsp_cmp)
+    local capabilities = nvim_lsp_cmp.default_capabilities()
+    capabilities.textDocument.colorProvider = {
+        dynamicRegistration = true,
+    }
+end
+
 return M

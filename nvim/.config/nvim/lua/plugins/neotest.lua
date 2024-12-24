@@ -5,10 +5,12 @@ return {
 		"nvim-lua/plenary.nvim",
 		"antoinemadec/FixCursorHold.nvim",
 		"nvim-treesitter/nvim-treesitter",
+
 		"mrcjkb/rustaceanvim",
 		"rcasia/neotest-java",
 		"stevanmilic/neotest-scala"
 	},
+	ft = { "rs", "java", "scala" },
 	config = function()
 		require('neotest').setup {
 			adapters = {

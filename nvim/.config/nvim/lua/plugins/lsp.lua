@@ -23,8 +23,6 @@ return {
 
         "L3MON4D3/LuaSnip",
         "rafamadriz/friendly-snippets",
-
-        "someone-stole-my-name/yaml-companion.nvim",
     },
     config = function()
         -- Stop LSPs on neovim exit
@@ -51,11 +49,7 @@ return {
         })
 
         local custom_on_attach = require("global.lsp").on_attach
-        local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
-        custom_capabilities.textDocument.colorProvider = {
-            dynamicRegistration = true,
-        }
-
+        local custom_capabilities = require("global.lsp").create_capabilities(require("cmp_nvim_lsp"))
         require("neoconf").setup()
 
         local lspconfig = require("lspconfig")
@@ -72,13 +66,7 @@ return {
                         capabilities = custom_capabilities,
                     })
                 end,
-                ["yamlls"] = function()
-                    local cfg = require("yaml-companion").setup({
-                        on_attach = custom_on_attach,
-                        capabilities = custom_capabilities,
-                    })
-
-                    lspconfig.yamlls.setup(cfg)
+                ["yamlls"] = function()        -- handled by yaml-companion
                 end,
                 ["jdtls"] = function()         -- handled under ftplugin
                 end,
