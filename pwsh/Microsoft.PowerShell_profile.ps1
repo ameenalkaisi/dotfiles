@@ -31,6 +31,7 @@ if ($host.Name -eq 'ConsoleHost')
 		neovide $env:LOCALAPPDATA\nvim
 	}
 	New-Alias nvimconf OpenNvimConfig
+    Set-Alias ls eza
 }
 
 # Copyright 2016 The Kubernetes Authors.
