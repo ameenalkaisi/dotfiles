@@ -46,6 +46,8 @@ function M.setup_jdtls()
     command! -buffer JdtTestNearestMethod lua require('jdtls').test_nearest_method()
     ]])
 
+    local lombok_jar_location = vim.fn.stdpath("config") .. "/dependencies/lombok.jar"
+
     -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
     local config = {
         -- The command that starts the language server
@@ -61,6 +63,7 @@ function M.setup_jdtls()
             "-Dlog.protocol=true",
             "-Dlog.level=ALL",
             "-Xms1g",
+            "-javaagent:" .. lombok_jar_location,
             "--add-modules=ALL-SYSTEM",
             "--add-opens",
             "java.base/java.util=ALL-UNNAMED",
