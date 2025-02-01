@@ -11,7 +11,7 @@ function M.setup_jdtls()
         vim.split(vim.fn.glob(jdtls_install_location .. "/plugins/org.eclipse.equinox.launcher_*.jar", true), "\n", {})
 
     local cur_equinox_launcher = equinox_launcher_jars[1]
-    local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+    local project_name = vim.fn.fnamemodify(vim.fn.expand("%:p"), ":p:h:t")
 
     local workspace_dir = require("global.system").home_path .. "/.jdtls/" .. project_name
     local cur_config = ""
@@ -90,7 +90,7 @@ function M.setup_jdtls()
         -- 💀
         -- This is the default if not provided, you can remove it. Or adjust as needed.
         -- One dedicated LSP server & client will be started per unique root_dir
-        root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew" }),
+        root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml" }),
         -- Here you can configure eclipse.jdt.ls specific settings
         -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
         -- for a list of options
