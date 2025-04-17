@@ -36,7 +36,8 @@ end)
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "K", "<nop>")
 
-vim.keymap.set("n", "<C-l>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-h>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<F3>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<F2>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
