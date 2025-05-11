@@ -2,23 +2,48 @@ return {
 	"j-morano/buffer_manager.nvim",
 	dependencies = { "nvim-lua/plenary.nvim" },
 	config = function()
+		local opts = { noremap = true }
+		local map = vim.keymap.set
+
+		-- Setup
 		require("buffer_manager").setup({
-			line_keys = "",
+			select_menu_item_commands = {
+				v = {
+					key = "<C-v>",
+					command = "vsplit"
+				},
+				h = {
+					key = "<C-h>",
+					command = "split"
+				}
+			},
+			focus_alternate_buffer = false,
+			short_file_names = true,
+			short_term_names = true,
+			loop_nav = false,
+			highlight = 'Normal:BufferManagerBorder',
+			win_extra_options = {
+				winhighlight = 'Normal:BufferManagerNormal',
+			},
 		})
 
-		vim.api.nvim_command([[
-			autocmd FileType buffer_manager vnoremap J :m '>+1<CR>gv=gv
-			autocmd FileType buffer_manager vnoremap K :m '<-2<CR>gv=gv
-		]])
-
-		for i = 1, 20 do
-			vim.keymap.set("n", string.format("<leader>%s", i), function()
-				require("buffer_manager.ui").nav_file(i)
-			end, {})
+		-- Navigate buffers bypassing the menu
+		local bmui = require("buffer_manager.ui")
+		local keys = '1234567890'
+		for i = 1, #keys do
+			local key = keys:sub(i, i)
+			map(
+				'n',
+				string.format('<leader>%s', key),
+				function() bmui.nav_file(i) end,
+				opts
+			)
 		end
 
-		vim.keymap.set("n", "[ ", require("buffer_manager.ui").nav_prev)
-		vim.keymap.set("n", "] ", require("buffer_manager.ui").nav_next)
-		vim.keymap.set("n", "<leader> ", require("buffer_manager.ui").toggle_quick_menu)
+		-- Just the menu
+		map({ 't', 'n' }, '<leader> ', bmui.toggle_quick_menu, opts)
+		-- Next/Prev
+		map('n', '] ', bmui.nav_next, opts)
+		map('n', '[ ', bmui.nav_prev, opts)
 	end,
 }
