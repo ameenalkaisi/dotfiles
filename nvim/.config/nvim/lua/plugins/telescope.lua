@@ -5,6 +5,7 @@ return {
         local builtin = require("telescope.builtin")
         local telescope = require("telescope")
 
+        vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Telescope find files" })
         vim.keymap.set("n", "<leader>pgf", builtin.git_files, { desc = "Telescope find git files" })
         vim.keymap.set("n", "<leader>plg", builtin.live_grep, { desc = "Telescope find in files (live grep)" })
         vim.keymap.set("n", "<leader>pn", builtin.lsp_incoming_calls, { desc = "Telescope incoming calls" })
@@ -13,9 +14,9 @@ return {
         vim.keymap.set("n", "<leader>pi", builtin.lsp_implementations, { desc = "Telescope implementation" })
         vim.keymap.set("n", "<leader>psr", builtin.lsp_implementations, { desc = "Telescope search resume" })
 
-        vim.keymap.set("n", "<leader>pf", telescope.extensions.file_browser.file_browser, {
+        vim.keymap.set("n", "<leader>pb", telescope.extensions.file_browser.file_browser, {
             desc =
-            "Telescope find file with file browser support"
+            "Telescope file browser"
         })
 
         local live_grep_args = telescope.extensions.live_grep_args.live_grep_args
@@ -85,6 +86,7 @@ return {
                         i = {
                             ["<C-k>"] = lga_actions.quote_prompt(),
                             ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+                            ["<C-h>"] = lga_actions.quote_prompt({ postfix = " --hidden " }),
                             -- freeze the current list and start a fuzzy search in the frozen list
                             ["<C-space>"] = lga_actions.to_fuzzy_refine,
                         },
