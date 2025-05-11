@@ -3,23 +3,23 @@ return {
     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-live-grep-args.nvim", "nvim-telescope/telescope-file-browser.nvim", "folke/trouble.nvim" },
     config = function()
         local builtin = require("telescope.builtin")
-
-        vim.keymap.set("n", "<leader>pf", builtin.find_files, {})
-        vim.keymap.set("n", "<leader>pgf", builtin.git_files, {})
-        vim.keymap.set("n", "<leader>plg", builtin.live_grep, {})
-        vim.keymap.set("n", "<leader>pn", builtin.lsp_incoming_calls, {})
-        vim.keymap.set("n", "<leader>pr", builtin.lsp_references, {})
-        vim.keymap.set("n", "<leader>pd", builtin.lsp_definitions, {})
-        vim.keymap.set("n", "<leader>pi", builtin.lsp_implementations, {})
-
         local telescope = require("telescope")
-        telescope.load_extension("live_grep_args")
+
+        vim.keymap.set("n", "<leader>pgf", builtin.git_files, { desc = "Telescope find git files" })
+        vim.keymap.set("n", "<leader>plg", builtin.live_grep, { desc = "Telescope find in files (live grep)" })
+        vim.keymap.set("n", "<leader>pn", builtin.lsp_incoming_calls, { desc = "Telescope incoming calls" })
+        vim.keymap.set("n", "<leader>pr", builtin.lsp_references, { desc = "Telescope references" })
+        vim.keymap.set("n", "<leader>pd", builtin.lsp_definitions, { desc = "Telescope defintions" })
+        vim.keymap.set("n", "<leader>pi", builtin.lsp_implementations, { desc = "Telescope implementation" })
+        vim.keymap.set("n", "<leader>psr", builtin.lsp_implementations, { desc = "Telescope search resume" })
+
+        vim.keymap.set("n", "<leader>pf", telescope.extensions.file_browser.file_browser, {
+            desc =
+            "Telescope find file with file browser support"
+        })
 
         local live_grep_args = telescope.extensions.live_grep_args.live_grep_args
-        vim.keymap.set("n", "<leader>pa", live_grep_args)
-
-        telescope.load_extension("file_browser")
-        vim.keymap.set("n", "<leader>pb", telescope.extensions.file_browser.file_browser)
+        vim.keymap.set("n", "<leader>pa", live_grep_args, { desc = "Telescope live grep args" })
 
         local actions = require("telescope.actions")
 
@@ -57,6 +57,7 @@ return {
         -- Use this to add more results without clearing the trouble list
         local add_to_trouble = require("trouble.sources.telescope").add
 
+        local lga_actions = require("telescope-live-grep-args.actions")
         telescope.setup({
             pickers = {
                 live_grep = {
@@ -76,6 +77,27 @@ return {
                     n = { ["<c-t>"] = open_with_trouble },
                 },
             },
+            extensions = {
+                live_grep_args = {
+                    auto_quoting = true, -- enable/disable auto-quoting
+                    -- define mappings, e.g.
+                    mappings = {         -- extend mappings
+                        i = {
+                            ["<C-k>"] = lga_actions.quote_prompt(),
+                            ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+                            -- freeze the current list and start a fuzzy search in the frozen list
+                            ["<C-space>"] = lga_actions.to_fuzzy_refine,
+                        },
+                    },
+                    -- ... also accepts theme settings, for example:
+                    -- theme = "dropdown", -- use dropdown theme
+                    -- theme = { }, -- use own theme spec
+                    -- layout_config = { mirror=true }, -- mirror preview pane
+                }
+            }
         })
+
+        telescope.load_extension("live_grep_args")
+        telescope.load_extension("file_browser")
     end,
 }
