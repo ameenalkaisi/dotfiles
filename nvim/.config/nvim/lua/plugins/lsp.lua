@@ -1,5 +1,5 @@
 return {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     dependencies = {
         "folke/neoconf.nvim",
         "folke/lazydev.nvim",
@@ -7,7 +7,7 @@ return {
         "mfussenegger/nvim-dap",
         "nvim-neotest/nvim-nio",
 
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
         "onsails/lspkind.nvim",
 
