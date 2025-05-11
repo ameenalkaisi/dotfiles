@@ -6,6 +6,8 @@ return {
         local telescope = require("telescope")
 
         vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Telescope find files" })
+        vim.keymap.set("n", "<leader>ph", function() builtin.find_files({ hidden = true, no_ignore = true }) end,
+            { desc = "Telescope find hidden files" })
         vim.keymap.set("n", "<leader>pgf", builtin.git_files, { desc = "Telescope find git files" })
         vim.keymap.set("n", "<leader>plg", builtin.live_grep, { desc = "Telescope find in files (live grep)" })
         vim.keymap.set("n", "<leader>pn", builtin.lsp_incoming_calls, { desc = "Telescope incoming calls" })
