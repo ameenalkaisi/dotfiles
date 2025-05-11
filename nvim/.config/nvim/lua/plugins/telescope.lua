@@ -22,6 +22,10 @@ return {
         local live_grep_args = telescope.extensions.live_grep_args.live_grep_args
         vim.keymap.set("n", "<leader>pa", live_grep_args, { desc = "Telescope live grep args" })
 
+        local live_grep_args_shortcuts = require("telescope-live-grep-args.shortcuts")
+        vim.keymap.set("v", "<leader>gv", live_grep_args_shortcuts.grep_word_under_cursor,
+            { desc = "Telescope live grep under selection" })
+
         local actions = require("telescope.actions")
 
         -- From https://github.com/nvim-telescope/telescope.nvim/issues/2201#issuecomment-1284691502
