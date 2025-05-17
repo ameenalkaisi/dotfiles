@@ -11,9 +11,13 @@ function M.on_attach(attached_client, bufnr)
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     set_vim_keymap_with_desc("n", "gD", vim.lsp.buf.declaration, bufopts, "Go to declaration")
-    -- set_vim_keymap_with_desc('n', 'K', vim.lsp.buf.hover, bufopts, "Show hover information")
+    set_vim_keymap_with_desc('n', 'K', function() vim.lsp.buf.hover({ border = "rounded" }) end, bufopts,
+        "Show hover information")
     set_vim_keymap_with_desc("n", "gi", vim.lsp.buf.implementation, bufopts, "Go to implementation")
-    set_vim_keymap_with_desc({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, bufopts, "Show signature help")
+    set_vim_keymap_with_desc({ "n", "i" }, "<C-s>",
+        function() vim.lsp.buf.signature_help({ border = "rounded" }) end
+        , { silent = true, buffer = bufnr },
+        "Show signature help")
     set_vim_keymap_with_desc("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts, "Add workspace folder")
     set_vim_keymap_with_desc("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts, "Remove workspace folder")
     set_vim_keymap_with_desc("n", "<leader>wl", function()

@@ -17,6 +17,7 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-nvim-lua",
         "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-nvim-lsp-signature-help",
         "saadparwaiz1/cmp_luasnip",
 
         "windwp/nvim-autopairs",
@@ -34,15 +35,12 @@ return {
             command = "LspStop",
         })
 
-        vim.lsp.handlers["textDocument/signatureHelp"] =
-            vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-
         vim.diagnostic.config({
             virtual_text = false,
             severity_sort = true,
             float = {
                 border = "rounded",
-                source = "always",
+                source = true,
                 header = "",
                 prefix = "",
             },
@@ -140,7 +138,8 @@ return {
                 { name = "nvim_lsp" },
                 --- { name = 'vsnip' }, -- For vsnip users.
                 { name = "luasnip" }, -- For luasnip users.
-                { name = "lazydev", group_index = 0 },
+                { name = 'nvim_lsp_signature_help' },
+                { name = "lazydev",                group_index = 0 },
                 --{ name = "ultisnips" }, -- For ultisnips users.
                 -- { name = 'snippy' }, -- For snippy users.
             }, {

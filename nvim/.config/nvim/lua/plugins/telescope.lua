@@ -14,7 +14,7 @@ return {
         vim.keymap.set("n", "<leader>pr", builtin.lsp_references, { desc = "Telescope references" })
         vim.keymap.set("n", "<leader>pd", builtin.lsp_definitions, { desc = "Telescope defintions" })
         vim.keymap.set("n", "<leader>pi", builtin.lsp_implementations, { desc = "Telescope implementation" })
-        vim.keymap.set("n", "<leader>psr", builtin.lsp_implementations, { desc = "Telescope search resume" })
+        vim.keymap.set("n", "<leader>psr", builtin.resume, { desc = "Telescope search resume" })
 
         vim.keymap.set("n", "<leader>pb", telescope.extensions.file_browser.file_browser, {
             desc =
